@@ -7,6 +7,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.server.ExposesResourceFor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -69,6 +70,12 @@ public class OeuvreRepresentation {
     public Oeuvre identifierMagazine(String nom, String numero) {
         Oeuvre o = repositoryO.findMagazineByNomEtNumero(nom, numero);
         return o;
+    }
+
+    @DeleteMapping(value = "/supprimer")
+    public String supprimer(Oeuvre oeuvre) {
+        repositoryO.delete(oeuvre);
+        return "Oeuvre supprimée";
     }
 
 }

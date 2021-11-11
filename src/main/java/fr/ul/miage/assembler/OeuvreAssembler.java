@@ -26,9 +26,9 @@ public class OeuvreAssembler implements RepresentationModelAssembler<Oeuvre, Ent
     }
 
     public CollectionModel<EntityModel<Oeuvre>> toCollectionModel(Iterable<? extends Oeuvre> entities) {
-        List<EntityModel<Oeuvre>> intervenantModel = StreamSupport.stream(entities.spliterator(), false)
-                .map(i -> toModel(i)).collect(Collectors.toList());
-        return CollectionModel.of(intervenantModel,
+        List<EntityModel<Oeuvre>> oeuvreModel = StreamSupport.stream(entities.spliterator(), false).map(i -> toModel(i))
+                .collect(Collectors.toList());
+        return CollectionModel.of(oeuvreModel,
                 linkTo(methodOn(OeuvreRepresentation.class).getAllOeuvres()).withSelfRel());
     }
 }

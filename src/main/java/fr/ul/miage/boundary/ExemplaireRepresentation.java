@@ -1,6 +1,7 @@
 package fr.ul.miage.boundary;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
@@ -41,18 +42,16 @@ public class ExemplaireRepresentation {
 
     @PatchMapping(value = "/modifier")
     @Transactional
-    public String modifier(String id, String etat) {
-        Optional<Exemplaire> body = repository.findById(id);
-        Exemplaire e = body.get();
-        e.setEtat(etat);
-        repository.save(e);
+    public String modifier(Exemplaire exemplaire, String etat) {
+        exemplaire.setEtat(etat);
+        repository.save(exemplaire);
         return "Exemlaire modidié";
     }
 
     @GetMapping(value = "/exemplaireDisponible")
-    public Exemplaire exemplaireDispo(String id) {
-        Exemplaire exemplaire = repository.findByEtatEtOeuvre(id);
-        return exemplaire;
+    public List<Exemplaire> exemplaireDispo(Oeuvre oeuvre) {
+        List<Exemplaire> exemplaires = repository.findByEtatEtOeuvre(oeuvre);
+        return exemplaires;
     }
 
     @GetMapping(value = "/identification")

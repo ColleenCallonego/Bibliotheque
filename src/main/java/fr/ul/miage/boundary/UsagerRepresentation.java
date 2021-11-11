@@ -2,8 +2,10 @@ package fr.ul.miage.boundary;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.server.ExposesResourceFor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import fr.ul.miage.assembler.UsagerAssembler;
 import fr.ul.miage.entity.Usager;
 
 import java.util.Optional;
@@ -17,6 +19,19 @@ import javax.transaction.Transactional;
 public class UsagerRepresentation {
     @Autowired
     UsagerResource repository;
+    @Autowired
+    UsagerAssembler assembler;
+
+    @GetMapping(value = "/{usagerId}")
+    public ResponseEntity<?> getOneUsager(@PathVariable("usagerId") String id) {
+        return Optional.ofNullable(repository.findById(id)).filter(Optional::isPresent)
+                .map(i -> ResponseEntity.ok(assembler.toModel(i.get()))).orElse(ResponseEntity.notFound().build());
+    }
+
+    @GetMapping
+    public ResponseEntity<?> getAllUsagers() {
+        return ResponseEntity.ok(assembler.toCollectionModel(repository.findAll()));
+    }
 
     @PostMapping(value = "/creer")
     @Transactional
@@ -27,38 +42,34 @@ public class UsagerRepresentation {
     }
 
     @GetMapping(value = "/identification")
-    public String identifier(String nom, String prenom) {
-        String id = repository.findByNomEtPrenom(nom, prenom);
-        return id;
+    public Usager identifier(String nom, String prenom) {
+        return repository.findByNomEtPrenom(nom, prenom);
     }
 
     @DeleteMapping(value = "/supprimer")
     @Transactional
-    public String supprimer(String nom, String prenom) {
-        String id = repository.findByNomEtPrenom(nom, prenom);
-        repository.deleteById(id);
+    public String supprimer(Usager usager) {
+        repository.delete(usager);
         return "Usager supprimé";
     }
 
     @PutMapping(value = "/modifier")
     @Transactional
-    public String modifier(String nom, String prenom, String mail, String adresse) {
-        String id = repository.findByNomEtPrenom(nom, prenom);
-        Integer penalite = repository.findPenalite(id);
-        Usager u = new Usager(nom, prenom, mail, adresse, penalite);
-        u.setId(id);
-        repository.save(u);
+    public String modifier(Usager usager, String nom, String prenom, String mail, String adresse) {
+        usager.setNom(nom);
+        usager.setPrenom(prenom);
+        usager.setMail(mail);
+        usager.setAdresse(adresse);
+        repository.save(usager);
         return "Usager modifié";
     }
 
     @PatchMapping(value = "/ajoutPenalite")
     @Transactional
-    public String ajouterPenalite(String id) {
-        Optional<Usager> body = repository.findById(id);
-        Integer penalite = repository.findPenalite(id);
-        Usager u = body.get();
-        u.setPenalite(penalite + 1);
-        repository.save(u);
+    public String ajouterPenalite(Usager usager) {
+        Integer penalite = usager.getPenalite();
+        usager.setPenalite(penalite + 1);
+        repository.save(usager);
         return "Penalité ajoutée";
     }
 }
