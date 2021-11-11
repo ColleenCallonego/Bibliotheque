@@ -27,8 +27,8 @@ public class UsagerRepresentation {
 
     @GetMapping(value = "/identification")
     @ResponseBody
-    public String identifier(String nom) {
-        String id = repository.findByNom(nom);
+    public String identifier(String nom, String prenom) {
+        String id = repository.findByNomEtPrenom(nom, prenom);
         System.out.println(id);
         return id;
     }
