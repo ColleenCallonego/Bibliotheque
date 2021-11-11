@@ -33,6 +33,10 @@ public class Usager {
         return this.id;
     }
 
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public String getMail() {
         return this.mail;
     }
@@ -67,5 +71,9 @@ public class Usager {
 
     public String getPrenom() {
         return prenom;
+    }
+
+    public void setPrenom(String prenom) {
+        this.prenom = prenom;
     }
 }

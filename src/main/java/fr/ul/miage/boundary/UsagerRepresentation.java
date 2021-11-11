@@ -40,4 +40,15 @@ public class UsagerRepresentation {
         repository.deleteById(id);
         return "Usager supprimé";
     }
+
+    @PutMapping(value = "/modifier")
+    @Transactional
+    public String modifier(String nom, String prenom, String mail, String adresse) {
+        String id = repository.findByNomEtPrenom(nom, prenom);
+        Integer penalite = repository.findPenalite(id);
+        Usager u = new Usager(nom, prenom, mail, adresse, penalite);
+        u.setId(id);
+        repository.save(u);
+        return "Usager modifié";
+    }
 }
