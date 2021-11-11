@@ -8,13 +8,16 @@ import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.server.ExposesResourceFor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import fr.ul.miage.assembler.ExemplaireAssembler;
 import fr.ul.miage.entity.Exemplaire;
 import fr.ul.miage.entity.Oeuvre;
 
@@ -24,6 +27,19 @@ import fr.ul.miage.entity.Oeuvre;
 public class ExemplaireRepresentation {
     @Autowired
     ExemplaireResource repository;
+    @Autowired
+    ExemplaireAssembler assembler;
+
+    @GetMapping(value = "/{exemplaireId}")
+    public ResponseEntity<?> getOneExemplaire(@PathVariable("exemplaireId") String id) {
+        return Optional.ofNullable(repository.findById(id)).filter(Optional::isPresent)
+                .map(i -> ResponseEntity.ok(assembler.toModel(i.get()))).orElse(ResponseEntity.notFound().build());
+    }
+
+    @GetMapping
+    public ResponseEntity<?> getAllExemplaires() {
+        return ResponseEntity.ok(assembler.toCollectionModel(repository.findAll()));
+    }
 
     @PostMapping(value = "/creer")
     @Transactional
