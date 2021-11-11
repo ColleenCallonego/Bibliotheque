@@ -16,13 +16,20 @@ public class UsagerRepresentation {
     @Autowired
     UsagerResource repository;
 
-    @PostMapping(value = "/create")
+    @PostMapping(value = "/creer")
     @Transactional
     @ResponseBody
-    public String createUsager(String nom, String prenom, String mail, String adresse) {
+    public String creerUsager(String nom, String prenom, String mail, String adresse) {
         Usager u = new Usager(nom, prenom, mail, adresse, 0);
         repository.save(u);
-        return "Usager is created";
+        return "Usager créé";
     }
 
+    @GetMapping(value = "/identification")
+    @ResponseBody
+    public String identifier(String nom) {
+        String id = repository.findByNom(nom);
+        System.out.println(id);
+        return id;
+    }
 }
