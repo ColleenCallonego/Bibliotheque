@@ -32,4 +32,12 @@ public class UsagerRepresentation {
         System.out.println(id);
         return id;
     }
+
+    @DeleteMapping(value = "/supprimer")
+    @Transactional
+    public String supprimer(String nom, String prenom) {
+        String id = repository.findByNomEtPrenom(nom, prenom);
+        repository.deleteById(id);
+        return "Usager supprimé";
+    }
 }
