@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.*;
 
 import fr.ul.miage.entity.Usager;
 
+import java.util.Optional;
+
 import javax.transaction.Transactional;
 
 @RestController
@@ -50,5 +52,16 @@ public class UsagerRepresentation {
         u.setId(id);
         repository.save(u);
         return "Usager modifié";
+    }
+
+    @PatchMapping(value = "/ajoutPenalite")
+    @Transactional
+    public String ajouterPenalite(String id) {
+        Optional<Usager> body = repository.findById(id);
+        Integer penalite = repository.findPenalite(id);
+        Usager u = body.get();
+        u.setPenalite(penalite + 1);
+        repository.save(u);
+        return "Penalité ajoutée";
     }
 }
