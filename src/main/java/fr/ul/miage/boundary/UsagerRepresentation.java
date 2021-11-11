@@ -20,7 +20,6 @@ public class UsagerRepresentation {
 
     @PostMapping(value = "/creer")
     @Transactional
-    @ResponseBody
     public String creerUsager(String nom, String prenom, String mail, String adresse) {
         Usager u = new Usager(nom, prenom, mail, adresse, 0);
         repository.save(u);
@@ -28,10 +27,8 @@ public class UsagerRepresentation {
     }
 
     @GetMapping(value = "/identification")
-    @ResponseBody
     public String identifier(String nom, String prenom) {
         String id = repository.findByNomEtPrenom(nom, prenom);
-        System.out.println(id);
         return id;
     }
 
