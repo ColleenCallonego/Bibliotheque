@@ -7,9 +7,9 @@ import fr.ul.miage.entity.Oeuvre;
 
 public interface OeuvreResource extends JpaRepository<Oeuvre, String> {
 
-    @Query("SELECT id FROM Oeuvre WHERE oeuvre_type = 'L' AND nom = ?1 AND sousNom = ?2")
-    String findLivreByNomEtSousNom(String nom, String sousNom);
+    @Query("SELECT o FROM Oeuvre o WHERE oeuvre_type = 'L' AND nom = ?1 AND sousNom = ?2")
+    Oeuvre findLivreByNomEtSousNom(String nom, String sousNom);
 
-    @Query("SELECT id FROM Oeuvre WHERE oeuvre_type = 'M' AND nom = ?1 AND numero = ?2")
-    String findMagazineByNomEtNumero(String nom, String numero);
+    @Query("SELECT o FROM Oeuvre o WHERE oeuvre_type = 'M' AND nom = ?1 AND numero = ?2")
+    Oeuvre findMagazineByNomEtNumero(String nom, String numero);
 }

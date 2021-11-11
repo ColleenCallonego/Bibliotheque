@@ -60,15 +60,15 @@ public class OeuvreRepresentation {
     }
 
     @GetMapping(value = "/identificationLivre")
-    public String identifierLivre(String nom, String sousNom) {
-        String id = repositoryO.findLivreByNomEtSousNom(nom, sousNom);
-        return id;
+    public Oeuvre identifierLivre(String nom, String sousNom) {
+        Oeuvre o = repositoryO.findLivreByNomEtSousNom(nom, sousNom);
+        return o;
     }
 
     @GetMapping(value = "/identificationMagazine")
-    public String identifierMagazine(String nom, String numero) {
-        String id = repositoryO.findMagazineByNomEtNumero(nom, numero);
-        return id;
+    public Oeuvre identifierMagazine(String nom, String numero) {
+        Oeuvre o = repositoryO.findMagazineByNomEtNumero(nom, numero);
+        return o;
     }
 
 }

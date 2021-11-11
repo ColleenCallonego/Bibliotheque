@@ -2,7 +2,6 @@ package fr.ul.miage.entity;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.Table;
 
 @Entity
 @DiscriminatorValue("L")
