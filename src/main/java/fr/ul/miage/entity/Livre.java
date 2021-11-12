@@ -13,8 +13,8 @@ public class Livre extends Oeuvre {
     public Livre() {
     }
 
-    public Livre(String titre, String auteur, Integer nbPage, String sousNom, String resume) {
-        super(titre, auteur, nbPage, 0);
+    public Livre(String titre, String auteur, Integer nbPage, String sousNom, String resume, Integer dureePret) {
+        super(titre, auteur, nbPage, 0, dureePret);
         this.sousNom = sousNom;
         this.resume = resume;
     }

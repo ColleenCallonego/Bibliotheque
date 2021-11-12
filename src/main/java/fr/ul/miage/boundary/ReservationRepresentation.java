@@ -1,6 +1,6 @@
 package fr.ul.miage.boundary;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
@@ -44,7 +44,7 @@ public class ReservationRepresentation {
     @PostMapping(value = "/creer")
     @Transactional
     public String creerReservation(Oeuvre oeuvre, Usager usager) {
-        Date date = new Date();
+        LocalDateTime date = LocalDateTime.now();
         Reservation r = new Reservation(date, "En cours", oeuvre, usager);
         repository.save(r);
         return "Réservation créée";

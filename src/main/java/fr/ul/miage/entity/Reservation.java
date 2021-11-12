@@ -1,5 +1,6 @@
 package fr.ul.miage.entity;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.UUID;
 
@@ -14,7 +15,7 @@ public class Reservation {
 
     @Id
     private String id;
-    private Date dateReservation;
+    private LocalDateTime dateReservation;
     private String Etat;
     @ManyToOne
     private Oeuvre oeuvre;
@@ -24,7 +25,7 @@ public class Reservation {
     public Reservation() {
     }
 
-    public Reservation(Date dateReservation, String Etat, Oeuvre oeuvre, Usager usager) {
+    public Reservation(LocalDateTime dateReservation, String Etat, Oeuvre oeuvre, Usager usager) {
         this.id = UUID.randomUUID().toString();
         this.dateReservation = dateReservation;
         this.Etat = Etat;
@@ -40,11 +41,11 @@ public class Reservation {
         this.id = id;
     }
 
-    public Date getDateReservation() {
+    public LocalDateTime getDateReservation() {
         return this.dateReservation;
     }
 
-    public void setDateReservation(Date dateReservation) {
+    public void setDateReservation(LocalDateTime dateReservation) {
         this.dateReservation = dateReservation;
     }
 

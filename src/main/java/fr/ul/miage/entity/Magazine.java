@@ -12,8 +12,8 @@ public class Magazine extends Oeuvre {
     public Magazine() {
     }
 
-    public Magazine(String titre, String auteur, Integer nbPage, String numero, String categorie) {
-        super(titre, auteur, nbPage, 0);
+    public Magazine(String titre, String auteur, Integer nbPage, String numero, String categorie, Integer dureePret) {
+        super(titre, auteur, nbPage, 0, dureePret);
         this.numero = numero;
         this.categorie = categorie;
     }
