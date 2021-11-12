@@ -5,7 +5,6 @@
         v-for="reservation in reservationsTab"
         v-bind:key="reservation.id"
         v-bind:title="reservation.reservation"
-        v-bind:nomReservation="nomReservation"
     >
     </ListeReservationItem>
 

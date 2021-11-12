@@ -5,13 +5,13 @@
 
     <div>
       <input type="text" id="nom" name="nom" v-model="nom">
-      <label for="nom">Nom:</label><br>
+      <label for="nom">Nom</label><br>
       <input type="text" id="prenom" name="prenom" v-model="prenom">
-      <label for="prenom">Prenom:</label><br>
+      <label for="prenom">Prenom</label><br>
       <input type="text" id="mail" name="mail" v-model="mail">
-      <label for="mail">Mail:</label><br>
+      <label for="mail">Mail</label><br>
       <input type="text" id="adresse" name="adresse" v-model="adresse">
-      <label for="adresse">Adresse:</label><br>
+      <label for="adresse">Adresse</label><br>
 
       <button v-on:click="postForm()">AJOUTER</button><span>{{reponseAPI}}</span>
     </div>
