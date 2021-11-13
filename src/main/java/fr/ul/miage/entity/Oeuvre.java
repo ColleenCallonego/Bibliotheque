@@ -21,17 +21,19 @@ public class Oeuvre {
     private String Auteur;
     private Integer nbPage;
     private Integer nbRes;
+    private Integer dureePret;
 
     public Oeuvre() {
 
     }
 
-    public Oeuvre(String nom, String Auteur, Integer nbPage, Integer nbRes) {
+    public Oeuvre(String nom, String Auteur, Integer nbPage, Integer nbRes, Integer dureePret) {
         this.id = UUID.randomUUID().toString();
         this.nom = nom;
         this.Auteur = Auteur;
         this.nbPage = nbPage;
         this.nbRes = nbRes;
+        this.dureePret = dureePret;
     }
 
     public String getId() {
@@ -72,6 +74,14 @@ public class Oeuvre {
 
     public void setNbRes(Integer nbRes) {
         this.nbRes = nbRes;
+    }
+
+    public Integer getDureePret() {
+        return this.dureePret;
+    }
+
+    public void setDureePret(Integer dureePret) {
+        this.dureePret = dureePret;
     }
 
 }

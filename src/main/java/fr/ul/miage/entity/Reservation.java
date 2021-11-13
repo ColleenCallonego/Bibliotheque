@@ -1,0 +1,75 @@
+package fr.ul.miage.entity;
+
+import java.time.LocalDateTime;
+import java.util.UUID;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "reservation")
+public class Reservation {
+
+    @Id
+    private String id;
+    private LocalDateTime dateReservation;
+    private String Etat;
+    @ManyToOne
+    private Oeuvre oeuvre;
+    @ManyToOne
+    private Usager usager;
+
+    public Reservation() {
+    }
+
+    public Reservation(LocalDateTime dateReservation, String Etat, Oeuvre oeuvre, Usager usager) {
+        this.id = UUID.randomUUID().toString();
+        this.dateReservation = dateReservation;
+        this.Etat = Etat;
+        this.oeuvre = oeuvre;
+        this.usager = usager;
+    }
+
+    public String getId() {
+        return this.id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public LocalDateTime getDateReservation() {
+        return this.dateReservation;
+    }
+
+    public void setDateReservation(LocalDateTime dateReservation) {
+        this.dateReservation = dateReservation;
+    }
+
+    public String getEtat() {
+        return this.Etat;
+    }
+
+    public void setEtat(String Etat) {
+        this.Etat = Etat;
+    }
+
+    public Oeuvre getOeuvre() {
+        return this.oeuvre;
+    }
+
+    public void setOeuvre(Oeuvre oeuvre) {
+        this.oeuvre = oeuvre;
+    }
+
+    public Usager getUsager() {
+        return this.usager;
+    }
+
+    public void setUsager(Usager usager) {
+        this.usager = usager;
+    }
+
+}

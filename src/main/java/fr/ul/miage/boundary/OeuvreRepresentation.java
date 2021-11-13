@@ -35,16 +35,18 @@ public class OeuvreRepresentation {
 
     @PostMapping(value = "/creerLivre")
     @Transactional
-    public String creerLivre(String nom, String auteur, Integer nbPage, String sousNom, String resume) {
-        Livre l = new Livre(nom, auteur, nbPage, sousNom, resume);
+    public String creerLivre(String nom, String auteur, Integer nbPage, String sousNom, String resume,
+            Integer dureePret) {
+        Livre l = new Livre(nom, auteur, nbPage, sousNom, resume, dureePret);
         repositoryL.save(l);
         return "Oeuvre créée";
     }
 
     @PostMapping(value = "/creerMagazine")
     @Transactional
-    public String creerMagazine(String nom, String auteur, Integer nbPage, String numero, String categorie) {
-        Magazine m = new Magazine(nom, auteur, nbPage, numero, categorie);
+    public String creerMagazine(String nom, String auteur, Integer nbPage, String numero, String categorie,
+            Integer dureePret) {
+        Magazine m = new Magazine(nom, auteur, nbPage, numero, categorie, dureePret);
         repositoryM.save(m);
         return "Oeuvre créee";
     }
