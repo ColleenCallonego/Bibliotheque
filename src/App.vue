@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div id="nav">
-      <img src="./assets/livre-icone.jpg" v-on:click="currentTab = 'Home'">
+      <img src="@/assets/livres.png" v-on:click="currentTab = 'Home'">
       <button
           v-for="tab in tabs"
           v-bind:key="tab"
