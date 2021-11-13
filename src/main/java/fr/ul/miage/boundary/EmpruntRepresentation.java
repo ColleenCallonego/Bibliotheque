@@ -2,6 +2,8 @@ package fr.ul.miage.boundary;
 
 import java.util.Optional;
 
+import com.fasterxml.jackson.databind.deser.impl.ObjectIdValueProperty;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.server.ExposesResourceFor;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 import fr.ul.miage.assembler.EmpruntAssembler;
 import fr.ul.miage.entity.Emprunt;
 import fr.ul.miage.entity.Exemplaire;
+import fr.ul.miage.entity.Oeuvre;
+import fr.ul.miage.entity.Reservation;
 import fr.ul.miage.entity.Usager;
 
 @RestController
@@ -23,44 +27,63 @@ import fr.ul.miage.entity.Usager;
 @ExposesResourceFor(Emprunt.class)
 public class EmpruntRepresentation {
     @Autowired
-    EmpruntResource repository;
+    EmpruntResource repositoryE;
     @Autowired
     EmpruntAssembler assembler;
+    @Autowired
+    ExemplaireResource repositoryEx;
+    @Autowired
+    OeuvreResource repositoryO;
+    @Autowired
+    ReservationResource repositoryR;
 
     @GetMapping(value = "/{empruntId}")
     public ResponseEntity<?> getOneEmprunt(@PathVariable("empruntId") String id) {
-        return Optional.ofNullable(repository.findById(id)).filter(Optional::isPresent)
+        return Optional.ofNullable(repositoryE.findById(id)).filter(Optional::isPresent)
                 .map(i -> ResponseEntity.ok(assembler.toModel(i.get()))).orElse(ResponseEntity.notFound().build());
     }
 
     @GetMapping
     public ResponseEntity<?> getAllEmprunts() {
-        return ResponseEntity.ok(assembler.toCollectionModel(repository.findAll()));
+        return ResponseEntity.ok(assembler.toCollectionModel(repositoryE.findAll()));
     }
 
     @PostMapping(value = "/creer")
     public String creerEmprunt(Exemplaire exemplaire, Usager usager) {
         Emprunt e = new Emprunt("En cours", exemplaire, usager);
-        repository.save(e);
+        repositoryE.save(e);
         return "Emprunt créé";
     }
 
     @DeleteMapping(value = "/supprimer")
     public String supprimerEmprunt(Emprunt emprunt) {
-        repository.delete(emprunt);
+        repositoryE.delete(emprunt);
         return "Emprunt supprimé";
     }
 
     @PatchMapping(value = "/modifier")
-    public String modifier(Emprunt emprunt, String etat) {
-        emprunt.setEtat(etat);
-        repository.save(emprunt);
+    public String modifier(Emprunt emprunt, String etatE, String etatEx) {
+        emprunt.setEtat(etatE);
+        repositoryE.save(emprunt);
+        Oeuvre oeuvre = emprunt.getExemplaire().getOeuvre();
+        Exemplaire exemplaire = emprunt.getExemplaire();
+        if (oeuvre.getNbRes() != 0 && !etatEx.equals("Abime")) {
+            oeuvre.setNbRes(oeuvre.getNbRes() - 1);
+            repositoryO.save(oeuvre);
+            exemplaire.setEtat("Reserve");
+            repositoryEx.save(exemplaire);
+            Reservation reservation = repositoryR.findReservationByOeuvreEtDate(oeuvre).get(0);
+            reservation.setEtat("Prete");
+            repositoryR.save(reservation);
+        } else {
+            exemplaire.setEtat(etatEx);
+        }
         return "Emprunt modifié";
     }
 
     @GetMapping(value = "/identification")
     public Emprunt identifier(Exemplaire exemplaire, Usager usager) {
-        Emprunt emprunt = repository.findEmpruntByExemplaireEtUsager(exemplaire, usager);
+        Emprunt emprunt = repositoryE.findEmpruntByExemplaireEtUsager(exemplaire, usager);
         return emprunt;
     }
 }

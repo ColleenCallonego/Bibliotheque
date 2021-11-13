@@ -61,7 +61,7 @@ public class ExemplaireRepresentation {
     public String modifier(Exemplaire exemplaire, String etat) {
         exemplaire.setEtat(etat);
         repository.save(exemplaire);
-        return "Exemlaire modifié";
+        return "Exemplaire modifié";
     }
 
     @GetMapping(value = "/exemplaireDisponible")

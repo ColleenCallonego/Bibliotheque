@@ -16,4 +16,7 @@ public interface ReservationResource extends JpaRepository<Reservation, String> 
 
     @Query("SELECT r FROM Reservation r WHERE usager_id = ?1 AND (etat = 'En cours' OR etat = 'Prete')")
     public List<Reservation> findReservationByUsager(Usager usager);
+
+    @Query("SELECT r FROM Reservation r WHERE oeuvre_id = ?1 ORDER BY dateReservation ASC")
+    public List<Reservation> findReservationByOeuvreEtDate(Oeuvre oeuvre);
 }
