@@ -24,11 +24,13 @@
       <input type="text" v-model="prenomUsager">
       <label>Prénom usager</label><br>
 
-      <input type="text" disabled placeholder="Code d'exempaire">
-      <button v-on:click="postFormDisponibilite()">DISPONIBILITE</button><span>{{reponse1API}}</span>
+      <input type="text" disabled placeholder="Code d'exempaire" v-model="codeExemplaire">
+      <button v-bind:disabled="changeClicDispo" v-on:click="postFormDisponibilite()">DISPONIBILITE</button>
 
-      <p id="repDisponibilite" v-bind:content="repDispo">{{repDispo}}</p>
-      <button type="submit" value="emprunter" formaction="/emprunt/creer" v-bind:disabled="empruntImpossible">EMPRUNTER</button>
+      <p v-if="this.oeuvreId == 'inexistant'">Malheureusement nous n'avons pas l'oeuvre que vous recherchez dans dans nos rayons.</p>
+      <p v-else-if="this.exemplaireId == 'inexistant'">L'oeuvre que vous cherchez n'est malheuresement pas disponible pour le moment.</p>
+      <p v-else-if="this.oeuvreId != null && this.exemplaireId != null && this.oeuvreId != 'inexistant' && this.exemplaireId != 'inexistant'">L'oeuvre que vous recherchez est disponible, vous pouvez voir ci-dessus le code de l'exemplaire que nous avons en rayon.</p>
+      <button v-bind:disabled="changeClicEmprunt" v-on:click="postFormEmprunt()">EMPRUNTER</button>
     </div>
   </div>
 </template>
@@ -39,45 +41,100 @@ import axios from 'axios';
 export default {
   data (){
     return {
-      titreOeuvre: "",
+      titreOeuvre: '',
       typeOeuvre: null,
-      sousTitreLivre: "",
-      numeroMagazine: "",
-      nomUsager: "",
-      prenomUsager: "",
+      sousTitreLivre: '',
+      numeroMagazine: '',
+      nomUsager: '',
+      prenomUsager: '',
+      oeuvreId: null,
+      exemplaireId: null,
+      usagerId: null,
+      codeExemplaire: '',
 
-      codeExemplaire: "",
-      repDispo: "L'oeuvre que vous cherchez n'est malheuresement pas disponible pour le moment.",
-      empruntImpossible: true,
-
-      reponse1API: null,
+      reponseAPI: null,
       errors1: [],
     }
   },
+  computed: {
+    changeClicDispo: function() {
+      if (this.titreOeuvre != '' && (this.sousTitreLivre != '' || this.numeroMagazine != '')){
+        return false
+      }
+      else {
+        return true
+      }
+    },
+    changeClicEmprunt: function() {
+      if (this.codeExemplaire != '' && this.nomUsager != '' && this.prenomUsager != ''){
+        return false
+      }
+      else {
+        return true
+      }
+    }
+  },
   methods: {
-    postFormDisponibilite() {
-
-      let param1 = new URLSearchParams()
-      param1.append('nom', this.titreOeuvre)
+    recupererIdUsager() {
+      let param = new URLSearchParams()
+      param.append('nom', this.nomUsager)
+      param.append('prenom', this.prenomUsager)
+      axios.get('/usagers/identification', {params: param})
+          .then(response => (this.usagerId = response.data.id))
+    },
+    recupererIdExemplaire(){
+      let param = new URLSearchParams()
+      param.append('oeuvre', this.oeuvreId)
+      axios.get('/exemplaires/exemplaireDisponible', {params: param})
+          .then(response => {
+            if (response.data != ''){
+              this.exemplaireId = response.data[0].id;
+              this.codeExemplaire = response.data[0].codeExemplaire;
+            }
+            else{
+              this.exemplaireId = 'inexistant'
+            }
+          })
+    },
+    recupererIdOeuvre(){
+      let param = new URLSearchParams()
+      param.append('nom', this.titreOeuvre)
       if (this.typeOeuvre == 'livre'){
-        param1.append('sousNom', this.sousTitreLivre)
-        axios.post('/oeuvre/identificationLivre', param1)
-            .then(response => (this.reponseAPI = response.data))
-            .catch(e => {
-              this.errors.push(e)
+        param.append('sousNom', this.sousTitreLivre)
+        axios.get('/oeuvres/identificationLivre', {params: param})
+            .then(response => {
+              if (response.data != ''){
+                this.oeuvreId = response.data.id
+                this.recupererIdExemplaire()
+              }
+              else{
+                this.oeuvreId = 'inexistant'
+              }
             })
       }
       else {
-        param1.append('numero', this.numeroMagazine)
-        axios.post('/oeuvre/identificationMagazine', param1)
-            .then(response => (this.reponseAPI = response.data))
-            .catch(e => {
-              this.errors.push(e)
+        param.append('numero', this.numeroMagazine)
+        axios.get('/oeuvres/identificationMagazine', {params: param})
+            .then(response => {
+              if (response.data != ''){
+                this.oeuvreId = response.data.id
+                this.recupererIdExemplaire()
+              }
+              else{
+                this.oeuvreId = 'inexistant'
+              }
             })
       }
+    },
+    postFormEmprunt(){
 
-
-
+    },
+    postFormDisponibilite() {
+      this.oeuvreId = null
+      this.exemplaireId = null
+      this.usagerId = null
+      this.codeExemplaire = ''
+      this.recupererIdOeuvre()
     }
   }
 }

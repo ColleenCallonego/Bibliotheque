@@ -11,7 +11,7 @@
       <input type="date" v-model="dateParutionExemplaire">
       <label>Date de parution Exemplaire</label><br>
 
-      <button v-on:click="postForm()">AJOUTER</button><span>{{reponseAPI}}</span>
+      <button v-on:click="postFormAjouterExemplaire()">AJOUTER</button><span>{{reponseAPI}}</span>
     </div>
   </div>
 </template>
@@ -31,7 +31,7 @@ export default {
   },
   props: ['titre'],
   methods: {
-    postForm() {
+    postFormAjouterExemplaire() {
       let param = new URLSearchParams()
       param.append('oeuvre', this.titre)
       param.append('edition', this.editionExemplaire)
