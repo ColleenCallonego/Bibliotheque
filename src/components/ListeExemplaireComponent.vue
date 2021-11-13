@@ -1,0 +1,23 @@
+<template>
+  <div>
+    <h2>Liste des exemplaires</h2>
+
+    <ListeExemplaireItem
+        v-for="exemplaire in exemplairesTab"
+        v-bind:key="exemplaire.id"
+        v-bind:code="exemplaire.code"
+    >
+    </ListeExemplaireItem>
+  </div>
+</template>
+
+<script>
+import ListeExemplaireItem from "@/components/ListeExemplaireItem";
+
+export default {
+  components: {
+    ListeExemplaireItem
+  },
+  props: ['exemplairesTab'],
+}
+</script>

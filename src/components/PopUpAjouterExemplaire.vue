@@ -1,0 +1,48 @@
+<template>
+  <div>
+    <h1>AJOUTER EXEMPALIRE</h1>
+    <button v-on:click="$emit('fermerPopUp')">ANNULER</button>
+
+    <div>
+      <input type="text" maxlength="5" v-model="codeExemplaire">
+      <label>Code Exemplaire</label><br>
+      <input type="text" v-model="editionExemplaire">
+      <label>Edition Exemplaire</label><br>
+      <input type="date" v-model="dateParutionExemplaire">
+      <label>Date de parution Exemplaire</label><br>
+
+      <button v-on:click="postForm()">AJOUTER</button><span>{{reponseAPI}}</span>
+    </div>
+  </div>
+</template>
+
+<script>
+import axios from 'axios';
+
+export default {
+  data(){
+    return {
+      codeExemplaire: '',
+      editionExemplaire: '',
+      dateParutionExemplaire: '',
+      errors: [],
+      reponseAPI: null,
+    }
+  },
+  props: ['titre'],
+  methods: {
+    postForm() {
+      let param = new URLSearchParams()
+      param.append('oeuvre', this.titre)
+      param.append('edition', this.editionExemplaire)
+      param.append('dateParution', this.dateParutionExemplaire)
+      param.append('codeExemplaire', this.codeExemplaire)
+      axios.post('/exemplaires/creer', param)
+          .then(response => (this.reponseAPI = response.data))
+          .catch(e => {
+            this.errors.push(e)
+          })
+    }
+  }
+}
+</script>

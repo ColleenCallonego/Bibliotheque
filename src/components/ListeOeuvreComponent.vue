@@ -24,7 +24,6 @@
       </span>
     </div>
 
-    <div>
     <ListeOeuvreItem
         v-for="oeuvre in oeuvresTab"
         v-bind:key="oeuvre.id"
@@ -33,7 +32,6 @@
         v-bind:type-recherche="typeRecherhce"
     >
     </ListeOeuvreItem>
-    </div>
 
   </div>
 </template>
