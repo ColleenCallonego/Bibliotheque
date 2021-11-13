@@ -1,6 +1,7 @@
 package fr.ul.miage.boundary;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
@@ -71,4 +72,9 @@ public class ReservationRepresentation {
         return reservation;
     }
 
+    @GetMapping(value = "/pourUsager")
+    public List<Reservation> ReservationPourUsager(Usager usager) {
+        List<Reservation> list = repository.findReservationByUsager(usager);
+        return list;
+    }
 }
