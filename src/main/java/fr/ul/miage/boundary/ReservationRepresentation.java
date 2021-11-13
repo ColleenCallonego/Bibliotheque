@@ -27,19 +27,21 @@ import fr.ul.miage.entity.Usager;
 @ExposesResourceFor(Reservation.class)
 public class ReservationRepresentation {
     @Autowired
-    ReservationResource repository;
+    ReservationResource repositoryR;
     @Autowired
     ReservationAssembler assembler;
+    @Autowired
+    OeuvreResource repositoryO;
 
     @GetMapping(value = "/{reservationId}")
     public ResponseEntity<?> getOneReservation(@PathVariable("reservationId") String id) {
-        return Optional.ofNullable(repository.findById(id)).filter(Optional::isPresent)
+        return Optional.ofNullable(repositoryR.findById(id)).filter(Optional::isPresent)
                 .map(i -> ResponseEntity.ok(assembler.toModel(i.get()))).orElse(ResponseEntity.notFound().build());
     }
 
     @GetMapping
     public ResponseEntity<?> getAllReservations() {
-        return ResponseEntity.ok(assembler.toCollectionModel(repository.findAll()));
+        return ResponseEntity.ok(assembler.toCollectionModel(repositoryR.findAll()));
     }
 
     @PostMapping(value = "/creer")
@@ -47,14 +49,16 @@ public class ReservationRepresentation {
     public String creerReservation(Oeuvre oeuvre, Usager usager) {
         LocalDateTime date = LocalDateTime.now();
         Reservation r = new Reservation(date, "En cours", oeuvre, usager);
-        repository.save(r);
+        repositoryR.save(r);
+        oeuvre.setNbRes(oeuvre.getNbRes() + 1);
+        repositoryO.save(oeuvre);
         return "Réservation créée";
     }
 
     @DeleteMapping(value = "/supprimer")
     @Transactional
     public String supprimer(Reservation reservation) {
-        repository.delete(reservation);
+        repositoryR.delete(reservation);
         return "Réservation supprimée";
     }
 
@@ -62,19 +66,21 @@ public class ReservationRepresentation {
     @Transactional
     public String modifier(Reservation reservation, String etat) {
         reservation.setEtat(etat);
-        repository.save(reservation);
+        repositoryR.save(reservation);
+        Oeuvre oeuvre = reservation.getOeuvre();
+        oeuvre.setNbRes(oeuvre.getNbRes() - 1);
         return "Réservation modifiée";
     }
 
     @GetMapping(value = "/identification")
     public Reservation identifier(Oeuvre oeuvre, Usager usager) {
-        Reservation reservation = repository.findReservationByOeuvreEtUsagerEtEtat(oeuvre, usager);
+        Reservation reservation = repositoryR.findReservationByOeuvreEtUsagerEtEtat(oeuvre, usager);
         return reservation;
     }
 
     @GetMapping(value = "/pourUsager")
     public List<Reservation> ReservationPourUsager(Usager usager) {
-        List<Reservation> list = repository.findReservationByUsager(usager);
+        List<Reservation> list = repositoryR.findReservationByUsager(usager);
         return list;
     }
 }

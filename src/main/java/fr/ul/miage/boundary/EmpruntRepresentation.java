@@ -2,8 +2,6 @@ package fr.ul.miage.boundary;
 
 import java.util.Optional;
 
-import com.fasterxml.jackson.databind.deser.impl.ObjectIdValueProperty;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.server.ExposesResourceFor;
 import org.springframework.http.ResponseEntity;
