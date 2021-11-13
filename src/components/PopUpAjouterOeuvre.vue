@@ -58,11 +58,11 @@ export default {
   methods: {
     postFormLivre(){
       let param = new URLSearchParams()
-      param.append('nom', this.nom)
-      param.append('auteur', this.prenom)
-      param.append('nbPage', this.mail)
-      param.append('sousNom', this.adresse)
-      param.append('resume', this.adresse)
+      param.append('nom', this.nomOeuvre)
+      param.append('auteur', this.auteurOeuvre)
+      param.append('nbPage', this.nbPageOeuvre)
+      param.append('sousNom', this.sousNomLivre)
+      param.append('resume', this.resumeLivre)
       axios.post('/oeuvres/creerLivre', param)
           .then(response => (this.reponseAPI = response.data))
           .catch(e => {
@@ -71,11 +71,11 @@ export default {
     },
     postFormMagazine(){
       let param = new URLSearchParams()
-      param.append('nom', this.nom)
-      param.append('auteur', this.prenom)
-      param.append('nbPage', this.mail)
-      param.append('numero', this.adresse)
-      param.append('categorie', this.adresse)
+      param.append('nom', this.nomOeuvre)
+      param.append('auteur', this.auteurOeuvre)
+      param.append('nbPage', this.nbPageOeuvre)
+      param.append('numero', this.numeroMagazine)
+      param.append('categorie', this.categorieMagazine)
       axios.post('/oeuvres/creerMagazine', param)
           .then(response => (this.reponseAPI = response.data))
           .catch(e => {

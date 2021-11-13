@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h1>Emprunts et retours d'oeuvres</h1>
     <EmprunterComponent/>
     <RetournerComponent/>
   </div>
