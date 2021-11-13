@@ -48,6 +48,8 @@ public class EmpruntRepresentation {
 
     @PostMapping(value = "/creer")
     public String creerEmprunt(Exemplaire exemplaire, Usager usager) {
+        exemplaire.setEtat("Emprunte");
+        repositoryEx.save(exemplaire);
         Emprunt e = new Emprunt("En cours", exemplaire, usager);
         repositoryE.save(e);
         return "Emprunt créé";
