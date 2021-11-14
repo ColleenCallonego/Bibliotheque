@@ -76,4 +76,9 @@ public class Usager {
     public void setPrenom(String prenom) {
         this.prenom = prenom;
     }
+
+    public void ajouterPenalite() {
+        Integer p = this.penalite;
+        this.penalite = (p + 1);
+    }
 }

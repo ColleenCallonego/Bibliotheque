@@ -1,5 +1,6 @@
 package fr.ul.miage.boundary;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,8 @@ public class EmpruntRepresentation {
     OeuvreResource repositoryO;
     @Autowired
     ReservationResource repositoryR;
+    @Autowired
+    UsagerResource repositoryU;
 
     @GetMapping(value = "/{empruntId}")
     public ResponseEntity<?> getOneEmprunt(@PathVariable("empruntId") String id) {
@@ -62,8 +65,16 @@ public class EmpruntRepresentation {
     }
 
     @PatchMapping(value = "/modifier")
-    public String modifier(Emprunt emprunt, String etatE, String etatEx) {
-        emprunt.setEtat(etatE);
+    public String modifier(Emprunt emprunt, String etatEx) {
+        Usager usager = emprunt.getUsager();
+        LocalDateTime now = LocalDateTime.now();
+        if (now.isAfter(emprunt.getDateRendu())) {
+            emprunt.setEtat("Rendu en retard");
+            usager.ajouterPenalite();
+            repositoryU.save(usager);
+        } else {
+            emprunt.setEtat("Rendu");
+        }
         repositoryE.save(emprunt);
         Oeuvre oeuvre = emprunt.getExemplaire().getOeuvre();
         Exemplaire exemplaire = emprunt.getExemplaire();
@@ -75,6 +86,10 @@ public class EmpruntRepresentation {
             Reservation reservation = repositoryR.findReservationByOeuvreEtDate(oeuvre).get(0);
             reservation.setEtat("Prete");
             repositoryR.save(reservation);
+        } else if (etatEx.equals("Abime")) {
+            exemplaire.setEtat(etatEx);
+            usager.ajouterPenalite();
+            repositoryU.save(usager);
         } else {
             exemplaire.setEtat(etatEx);
         }
