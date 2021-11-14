@@ -30,7 +30,7 @@
       <p v-if="this.oeuvreId == 'inexistant'">Malheureusement nous n'avons pas l'oeuvre que vous recherchez dans dans nos rayons.</p>
       <p v-else-if="this.exemplaireId == 'inexistant'">L'oeuvre que vous cherchez n'est malheuresement pas disponible pour le moment.</p>
       <p v-else-if="this.oeuvreId != null && this.exemplaireId != null && this.oeuvreId != 'inexistant' && this.exemplaireId != 'inexistant'">L'oeuvre que vous recherchez est disponible, vous pouvez voir ci-dessus le code de l'exemplaire que nous avons en rayon.</p>
-      <button v-bind:disabled="changeClicEmprunt" v-on:click="postFormEmprunt()">EMPRUNTER</button>
+      <button v-bind:disabled="changeClicEmprunt" v-on:click="postFormEmprunt()">EMPRUNTER</button><span>{{reponseAPI}}</span>
     </div>
   </div>
 </template>
@@ -58,7 +58,7 @@ export default {
   },
   computed: {
     changeClicDispo: function() {
-      if (this.titreOeuvre != '' && (this.sousTitreLivre != '' || this.numeroMagazine != '')){
+      if (this.titreOeuvre != '' && (this.sousTitreLivre != '' || this.numeroMagazine != '') && this.nomUsager != '' && this.prenomUsager != ''){
         return false
       }
       else {
@@ -66,7 +66,7 @@ export default {
       }
     },
     changeClicEmprunt: function() {
-      if (this.codeExemplaire != '' && this.nomUsager != '' && this.prenomUsager != ''){
+      if (this.codeExemplaire != ''){
         return false
       }
       else {
@@ -106,6 +106,7 @@ export default {
               if (response.data != ''){
                 this.oeuvreId = response.data.id
                 this.recupererIdExemplaire()
+                this.recupererIdUsager()
               }
               else{
                 this.oeuvreId = 'inexistant'
@@ -119,6 +120,7 @@ export default {
               if (response.data != ''){
                 this.oeuvreId = response.data.id
                 this.recupererIdExemplaire()
+                this.recupererIdUsager()
               }
               else{
                 this.oeuvreId = 'inexistant'
@@ -127,6 +129,11 @@ export default {
       }
     },
     postFormEmprunt(){
+      let param = new URLSearchParams()
+      param.append('exemplaire', this.exemplaireId)
+      param.append('usager', this.usagerId)
+      axios.post('/emprunts/creer', param)
+          .then(response => (this.reponseAPI = response.data))
 
     },
     postFormDisponibilite() {
