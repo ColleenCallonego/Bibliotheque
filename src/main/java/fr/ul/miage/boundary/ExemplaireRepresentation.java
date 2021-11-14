@@ -75,4 +75,10 @@ public class ExemplaireRepresentation {
         Exemplaire exemplaire = repository.findByOeuvreEtCode(oeuvre, codeExemplaire);
         return exemplaire;
     }
+
+    @GetMapping(value = "/exemplairePourOeuvre")
+    public List<Exemplaire> exemplairesOeuvre(Oeuvre oeuvre) {
+        List<Exemplaire> exemplaires = repository.findByOeuvre(oeuvre);
+        return exemplaires;
+    }
 }
