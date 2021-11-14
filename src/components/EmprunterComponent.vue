@@ -28,7 +28,7 @@
       <button v-bind:disabled="changeClicDispo" v-on:click="postFormDisponibilite()">DISPONIBILITE</button><br>
 
       <p v-if="this.usagerId == 'inexistant'">Nous n'avons pas trouvé votre compte usager, vérifiez l'orthographe ou créez-vous un compte.</p>
-      <p v-if="this.oeuvreId == 'inexistant'">Malheureusement nous n'avons pas l'oeuvre que vous recherchez dans dans nos rayons.</p>
+      <p v-else-if="this.oeuvreId == 'inexistant'">Malheureusement nous n'avons pas l'oeuvre que vous recherchez dans dans nos rayons.</p>
       <p v-else-if="this.exemplaireId == 'inexistant'">L'oeuvre que vous cherchez n'est malheuresement pas disponible pour le moment.</p>
       <p v-else-if="this.oeuvreId != null && this.exemplaireId != null && this.oeuvreId != 'inexistant' && this.exemplaireId != 'inexistant'">L'oeuvre que vous recherchez est disponible, vous pouvez voir ci-dessus le code de l'exemplaire que nous avons en rayon.</p>
       <button v-bind:disabled="changeClicEmprunt" v-on:click="postFormEmprunt()">EMPRUNTER</button><span>{{reponseAPI}}</span>
@@ -84,6 +84,7 @@ export default {
           .then(response => {
             if (response.data != ''){
               this.usagerId = response.data.id
+              this.recupererIdOeuvre()
             }
             else{
               this.usagerId = 'inexistant'
@@ -96,8 +97,8 @@ export default {
       axios.get('/exemplaires/exemplaireDisponible', {params: param})
           .then(response => {
             if (response.data != ''){
-              this.exemplaireId = response.data[0].id;
-              this.codeExemplaire = response.data[0].codeExemplaire;
+              this.exemplaireId = response.data[0].id
+              this.codeExemplaire = response.data[0].codeExemplaire
             }
             else{
               this.exemplaireId = 'inexistant'
@@ -148,7 +149,6 @@ export default {
       this.usagerId = null
       this.codeExemplaire = ''
       this.recupererIdUsager()
-      this.recupererIdOeuvre()
     }
   }
 }
