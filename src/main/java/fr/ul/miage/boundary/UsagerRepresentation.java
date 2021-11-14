@@ -63,13 +63,4 @@ public class UsagerRepresentation {
         repository.save(usager);
         return "Usager modifié";
     }
-
-    @PatchMapping(value = "/ajoutPenalite")
-    @Transactional
-    public String ajouterPenalite(Usager usager) {
-        Integer penalite = usager.getPenalite();
-        usager.setPenalite(penalite + 1);
-        repository.save(usager);
-        return "Penalité ajoutée";
-    }
 }
