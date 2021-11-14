@@ -10,6 +10,8 @@
       <label>Auteur</label><br>
       <input type="number" min="1" v-model="nbPageOeuvre">
       <label>Nombre de page</label><br>
+      <input type="number" min="7" v-model="dureePret">
+      <label>Durée du prêt</label><br>
 
       <input type="radio" value="livre" v-model="typeAjout" v-on:click="numeroMagazine = '';categorieMagazine = ''">
       <label>Livre</label>
@@ -51,6 +53,7 @@ export default {
       resumeLivre: '',
       numeroMagazine: '',
       categorieMagazine: '',
+      dureePret: '',
       errors: [],
       reponseAPI: null,
     }
@@ -63,6 +66,7 @@ export default {
       param.append('nbPage', this.nbPageOeuvre)
       param.append('sousNom', this.sousNomLivre)
       param.append('resume', this.resumeLivre)
+      param.append('dureePret', this.dureePret)
       axios.post('/oeuvres/creerLivre', param)
           .then(response => (this.reponseAPI = response.data))
           .catch(e => {
@@ -76,6 +80,7 @@ export default {
       param.append('nbPage', this.nbPageOeuvre)
       param.append('numero', this.numeroMagazine)
       param.append('categorie', this.categorieMagazine)
+      param.append('dureePret', this.dureePret)
       axios.post('/oeuvres/creerMagazine', param)
           .then(response => (this.reponseAPI = response.data))
           .catch(e => {
