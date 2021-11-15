@@ -1,13 +1,16 @@
 <template>
   <div>
-    <ReservationIdentifierUsagerComponent v-on:recupUsager="usagerReservations.num = $event"></ReservationIdentifierUsagerComponent>
-    <ReservationComponent v-bind:num-usager="usagerReservations.num" v-bind:reservations-tab="usagerReservations.reservationsTab"></ReservationComponent>
+    {{usagerReservations.reservationsTab}}
+    <h1>Réservation d'oeuvres</h1>
+    <ReservationIdentifierUsagerComponent v-on:recupUsager="recupererListeReservation($event)"></ReservationIdentifierUsagerComponent>
+    <ReservationComponent v-bind:id-usager="usagerReservations.id" v-bind:reservations-tab="usagerReservations.reservationsTab"></ReservationComponent>
   </div>
 </template>
 
 <script>
 import  ReservationIdentifierUsagerComponent from "@/components/ReservationIdentifierUsagerComponent";
 import  ReservationComponent from "@/components/ReservationComponent";
+import axios from "axios";
 
 export default {
   components: {
@@ -16,22 +19,28 @@ export default {
   data() {
     return {
       usagerReservations: {
-        num: null,
-        reservationsTab: [
-          {
-            id:1,
-            reservation: "L'épée de vérité"
-          },
-          {
-            id:2,
-            reservation: "Les chevaliers d'Enkidiev"
-          },
-          {
-            id:3,
-            reservation: "L'assassin royal"
-          }
-        ]
-      } //les donner recuperer par le ReservationIdentifierUsager
+        id: null,
+        reservationsTab: [],
+      }
+    }
+  },
+  methods: {
+    recupererListeReservation(idUsager){
+      this.usagerReservations.id = idUsager
+
+      let param = new URLSearchParams()
+      param.append('usager', this.usagerReservations.id)
+      axios.get('/reservations/pourUsager', {params: param})
+          .then(response => {
+            if (response.data != ''){
+              this.usagerReservations.reservationsTab = response.data
+              console.log(response.data)
+            }
+            else{
+              this.usagerReservations.reservationsTab = 'inexistant'
+            }
+          })
+
     }
   }
 }

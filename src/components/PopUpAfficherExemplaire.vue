@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Afficher les exemplaires de {{titre}}</h1>
+    <h2>Afficher les exemplaires de {{nomEntier}}</h2>
     <button v-on:click="$emit('fermerPopUp')">RETOUR</button>
 
     <button v-on:click="ouvrePopUpAjouterExemplaire">AJOUTER EXEMPLAIRE</button>
@@ -18,7 +18,7 @@ export default {
   components: {
     PopUpAjouterExemplaire, ListeExemplaireComponent
   },
-  props: ['titre'],
+  props: ['idOeuvre', 'nomEntier'],
   data() {
     return {
       popUpEtat: false,

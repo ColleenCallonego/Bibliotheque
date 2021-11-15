@@ -13,7 +13,7 @@
       <input type="text" id="adresse" name="adresse" v-model="adresse">
       <label for="adresse">Adresse</label><br>
 
-      <button v-on:click="postForm()">AJOUTER</button><span>{{reponseAPI}}</span>
+      <button v-bind:disabled="changeClicAjouterUsager" v-on:click="postForm()">AJOUTER</button><span>{{reponseAPI}}</span>
     </div>
   </div>
 </template>
@@ -30,6 +30,16 @@ export default {
       adresse: '',
       errors: [],
       reponseAPI: null,
+    }
+  },
+  computed: {
+    changeClicAjouterUsager: function (){
+      if (this.nom != '' && this.prenom != '' && this.mail != '' && this.adresse != ''){
+        return false
+      }
+      else {
+        return true
+      }
     }
   },
   methods: {

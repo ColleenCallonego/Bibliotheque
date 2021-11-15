@@ -11,6 +11,7 @@
 <script>
 import PopUpAjouterUsager from "@/components/PopUpAjouterUsager";
 import ListeUsagerComponent from "@/components/ListeUsagerComponent";
+import axios from "axios";
 
 export default {
   components: {
@@ -19,24 +20,14 @@ export default {
   data() {
     return {
       popUpEtat: false,
-      usagersTab: [
-        {
-          id:1,
-          nom: "Couroux",
-          prenom: "Gabriel"
-        },
-        {
-          id:2,
-          nom: "Callonego",
-          prenom: "Colleen"
-        },
-        {
-          id:3,
-          nom: "Couroux",
-          prenom: "Wilfrid"
-        }
-      ]
+      usagersTab: []
     }
+  },
+  mounted() {
+    axios.get('/usagers')
+        .then(response => {
+          this.usagersTab = response.data._embedded.usagers
+        })
   },
   methods: {
     ouvrePopUpAjouterUsager() {

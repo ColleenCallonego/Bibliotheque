@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>Liste des oeuvres </h2>
+    <h2>Liste des oeuvres</h2>
 
     <div id="rechercheParTitre">
       <p>Recherche d'une oeuvre</p>
@@ -24,20 +24,34 @@
       </span>
     </div>
 
-    <ListeOeuvreItem
-        v-for="oeuvre in oeuvresTab"
-        v-bind:key="oeuvre.id"
-        v-bind:titre="oeuvre.titre"
-        v-bind:titre-recherche="titreOeuvreRecherche"
-        v-bind:type-recherche="typeRecherhce"
-    >
-    </ListeOeuvreItem>
+    <div v-if="typeRecherhce != 'magazine'">
+      <ListeLivreItem
+          v-for="livre in livresTab"
+          v-bind:key="livre.id"
+          v-bind:livre="livre"
+          v-bind:titre-recherche="titreOeuvreRecherche"
+          v-bind:sous-titre-recherche="sousTitreLivreRecherche"
+      >livres
+      </ListeLivreItem>
+    </div>
+
+    <div v-if="typeRecherhce != 'livre'">
+      <ListeMagazineItem
+          v-for="magazine in magazinesTab"
+          v-bind:key="magazine.id"
+          v-bind:magazine="magazine"
+          v-bind:nom-recherche="titreOeuvreRecherche"
+          v-bind:numero-recherche="numeroMagazineRecherche"
+      >magazines
+      </ListeMagazineItem>
+    </div>
 
   </div>
 </template>
 
 <script>
-import ListeOeuvreItem from "@/components/ListeOeuvreItem";
+import ListeMagazineItem from "@/components/ListeMagazineItem";
+import ListeLivreItem from "@/components/ListeLivreItem";
 
 export default {
   data() {
@@ -49,8 +63,8 @@ export default {
     }
   },
   components: {
-    ListeOeuvreItem
+    ListeLivreItem, ListeMagazineItem
   },
-  props: ['oeuvresTab']
+  props: ['livresTab', 'magazinesTab']
 }
 </script>

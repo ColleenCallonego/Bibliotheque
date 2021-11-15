@@ -16,8 +16,7 @@
       <ListeUsagerItem
           v-for="usager in usagersTab"
           v-bind:key="usager.id"
-          v-bind:nom="usager.nom"
-          v-bind:prenom="usager.prenom"
+          v-bind:usager="usager"
           v-bind:nom-recherche="nomUsagerRecherche"
           v-bind:prenom-recherche="prenomUsagerRecherche"
       >

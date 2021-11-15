@@ -1,10 +1,10 @@
 <template>
-  <div v-if="nom.indexOf(this.nomRecherche) != -1 && prenom.indexOf(this.prenomRecherche) != -1">
-    <h3>{{this.nom}} {{this.prenom}}</h3>
+  <div v-if="this.usager.nom.indexOf(this.nomRecherche) != -1 && this.usager.prenom.indexOf(this.prenomRecherche) != -1">
+    <h3>{{this.usager.nom}} {{this.usager.prenom}}</h3>
     <div>
-      <p>{{info1}}</p>
-      <p>{{info2}}</p>
-      <p>{{info3}}</p>
+      <p>Adresse : {{this.usager.adresse}}</p>
+      <p>Mail : {{this.usager.mail}}</p>
+      <p>Nombre de pénalité : {{this.usager.penalite}}</p>
 
       <button>SUPPRIMER</button>
       <button>MODIFIER</button>
@@ -16,11 +16,9 @@
 export default {
   data() {
     return {
-      info1: 'info1',
-      info2: 'info2',
-      info3: 'info3',
+
     }
   },
-  props: ['nom', 'prenom', 'nomRecherche', 'prenomRecherche'],
+  props: ['usager', 'nomRecherche', 'prenomRecherche'],
 }
 </script>

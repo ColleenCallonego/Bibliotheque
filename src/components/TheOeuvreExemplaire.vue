@@ -1,15 +1,17 @@
 <template>
   <div>
+    <h1>Oeuvres et exemplaires</h1>
     <button v-on:click="ouvrePopUpAjouterOeuvre">AJOUTER OEUVRE</button>
     <PopUpAjouterOeuvre v-if="popUpEtat" v-on:fermerPopUp="popUpEtat = false"></PopUpAjouterOeuvre>
 
-    <ListeOeuvreComponent v-bind:oeuvres-tab="oeuvresTab"></ListeOeuvreComponent>
+    <ListeOeuvreComponent v-bind:livres-tab="livresTab" v-bind:magazines-tab="magazinesTab"></ListeOeuvreComponent>
   </div>
 </template>
 
 <script>
 import PopUpAjouterOeuvre from "@/components/PopUpAjouterOeuvre";
 import ListeOeuvreComponent from "@/components/ListeOeuvreComponent";
+import axios from "axios";
 
 export default {
   components: {
@@ -19,21 +21,16 @@ export default {
   data() {
     return {
       popUpEtat: false,
-      oeuvresTab: [
-        {
-          id:1,
-          titre: "L'épée de vérité"
-        },
-        {
-          id:2,
-          titre: "Les chevaliers d'Enkidiev"
-        },
-        {
-          id:3,
-          titre: "L'assassin royal"
-        }
-      ]
+      livresTab: [],
+      magazinesTab: [],
     }
+  },
+  mounted() {
+    axios.get('/oeuvres')
+        .then(response => {
+          this.livresTab = response.data._embedded.livres
+          this.magazinesTab = response.data._embedded.magazines
+        })
   },
   methods: {
     ouvrePopUpAjouterOeuvre() {

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>AJOUTER OEUVRE</h1>
+    <h2>AJOUTER OEUVRE</h2>
     <button v-on:click="$emit('fermerPopUp')">ANNULER</button>
 
     <div>
@@ -24,7 +24,7 @@
         <textarea type="text" v-model="resumeLivre"></textarea>
         <label>Résumé</label><br>
 
-        <button v-on:click="postFormLivre()">AJOUTER</button><span>{{reponseAPI}}</span>
+        <button v-bind:disabled="changeClicAjouterLivre" v-on:click="postFormLivre()">AJOUTER</button><span>{{reponseAPI}}</span>
       </div>
       <div v-else-if="typeAjout == 'magazine'">
         <input type="number" min="1" v-model="numeroMagazine">
@@ -32,7 +32,7 @@
         <input type="text" v-model="categorieMagazine">
         <label>Catégorie</label><br>
 
-        <button v-on:click="postFormMagazine()">AJOUTER</button><span>{{reponseAPI}}</span>
+        <button v-bind:disabled="changeClicAjouterMagazine" v-on:click="postFormMagazine()">AJOUTER</button><span>{{reponseAPI}}</span>
       </div>
 
     </div>
@@ -58,7 +58,33 @@ export default {
       reponseAPI: null,
     }
   },
+  computed: {
+    changeClicAjouterLivre: function (){
+      if (this.changeClicAjouterOeuvre() && this.sousNomLivre != '' && this.resumeLivre != ''){
+        return false
+      }
+      else {
+        return true
+      }
+    },
+    changeClicAjouterMagazine: function (){
+      if (this.changeClicAjouterOeuvre() && this.numeroMagazine != '' && this.categorieMagazine != ''){
+        return false
+      }
+      else {
+        return true
+      }
+    }
+  },
   methods: {
+    changeClicAjouterOeuvre: function (){
+      if (this.nomOeuvre != '' && this.auteurOeuvre != '' && this.nbPageOeuvre != '' && this.dureePret != ''){
+        return false
+      }
+      else {
+        return true
+      }
+    },
     postFormLivre(){
       let param = new URLSearchParams()
       param.append('nom', this.nomOeuvre)

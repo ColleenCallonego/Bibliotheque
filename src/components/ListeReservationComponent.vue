@@ -4,7 +4,7 @@
     <ListeReservationItem
         v-for="reservation in reservationsTab"
         v-bind:key="reservation.id"
-        v-bind:title="reservation.reservation"
+        v-bind:reservation="reservation"
     >
     </ListeReservationItem>
 
@@ -18,6 +18,6 @@ export default {
   components: {
     ListeReservationItem
   },
-  props: ['numUsager', 'reservationsTab']
+  props: ['idUsager', 'reservationsTab']
 }
 </script>

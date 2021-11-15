@@ -1,10 +1,10 @@
 <template>
   <div>
-    <h3>{{title}}</h3>
+    <h3>{{}}</h3>
     <div>
-      <p>{{info1}}</p>
-      <p>{{info2}}</p>
-      <p>{{info3}}</p>
+      <p>{{}}</p>
+      <p>{{}}</p>
+      <p>{{}}</p>
 
       <p v-if="oeuvreDispo">Dispo<button>RECUP</button></p>
       <p v-else>Pas dispo</p>
@@ -18,12 +18,12 @@
 export default {
   data() {
     return {
-      info1: 'info1',
-      info2: 'info2',
-      info3: 'info3',
-      oeuvreDispo: true
+      oeuvreDispo: true,
     }
   },
-  props: ['title'],
+  props: ['reservation'],
+  computed: {
+
+  }
 }
 </script>
