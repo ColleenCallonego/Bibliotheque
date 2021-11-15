@@ -27,22 +27,24 @@
     <div v-if="typeRecherhce != 'magazine'">
       <ListeLivreItem
           v-for="livre in livresTab"
-          v-bind:key="livre.id"
+          v-bind:key="livre.nom + ' - ' + livre.sousNom"
           v-bind:livre="livre"
           v-bind:titre-recherche="titreOeuvreRecherche"
           v-bind:sous-titre-recherche="sousTitreLivreRecherche"
-      >livres
+          v-on:supprimerOeuvre="$emit('supprimerOeuvre')"
+      >
       </ListeLivreItem>
     </div>
 
     <div v-if="typeRecherhce != 'livre'">
       <ListeMagazineItem
           v-for="magazine in magazinesTab"
-          v-bind:key="magazine.id"
+          v-bind:key="magazine.nom + ' - ' + magazine.numero"
           v-bind:magazine="magazine"
           v-bind:nom-recherche="titreOeuvreRecherche"
           v-bind:numero-recherche="numeroMagazineRecherche"
-      >magazines
+          v-on:supprimerOeuvre="$emit('supprimerOeuvre')"
+      >
       </ListeMagazineItem>
     </div>
 

@@ -4,7 +4,7 @@
     <button v-on:click="ouvrePopUpAjouterOeuvre">AJOUTER OEUVRE</button>
     <PopUpAjouterOeuvre v-if="popUpEtat" v-on:fermerPopUp="popUpEtat = false"></PopUpAjouterOeuvre>
 
-    <ListeOeuvreComponent v-bind:livres-tab="livresTab" v-bind:magazines-tab="magazinesTab"></ListeOeuvreComponent>
+    <ListeOeuvreComponent v-bind:livres-tab="livresTab" v-bind:magazines-tab="magazinesTab" v-on:supprimerOeuvre="recupererToutesLesOeuvres"></ListeOeuvreComponent>
   </div>
 </template>
 
@@ -26,15 +26,19 @@ export default {
     }
   },
   mounted() {
-    axios.get('/oeuvres')
-        .then(response => {
-          this.livresTab = response.data._embedded.livres
-          this.magazinesTab = response.data._embedded.magazines
-        })
+    this.recupererToutesLesOeuvres()
+
   },
   methods: {
     ouvrePopUpAjouterOeuvre() {
       this.popUpEtat = true
+    },
+    recupererToutesLesOeuvres() {
+      axios.get('/oeuvres')
+          .then(response => {
+            this.livresTab = response.data._embedded.livres
+            this.magazinesTab = response.data._embedded.magazines
+          })
     }
   }
 }

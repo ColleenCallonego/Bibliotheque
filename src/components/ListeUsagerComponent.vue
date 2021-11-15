@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>Liste des usagers </h2>
+    <h2>Liste des usagers</h2>
 
     <div id="rechercheParNom">
       <p>Recherche d'un usager</p>
@@ -15,10 +15,11 @@
     <div>
       <ListeUsagerItem
           v-for="usager in usagersTab"
-          v-bind:key="usager.id"
+          v-bind:key="usager.nom + ' ' + usager.prenom"
           v-bind:usager="usager"
           v-bind:nom-recherche="nomUsagerRecherche"
           v-bind:prenom-recherche="prenomUsagerRecherche"
+          v-on:supprimerUsager="$emit('supprimerUsager')"
       >
       </ListeUsagerItem>
     </div>

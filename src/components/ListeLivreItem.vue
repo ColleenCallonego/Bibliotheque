@@ -6,15 +6,16 @@
       <p>Résumé : {{this.livre.resume}}</p>
       <p>{{this.livre.nbPage}} pages</p>
 
-      <button>SUPPRIMER</button>
+      <button v-on:click="supprimerLivre">SUPPRIMER</button>
       <button v-on:click="ouvrePopUpAfficherExemplaire">AFFICHER EXEMPLAIRES</button>
-      <PopUpAfficherExemplaire v-if="popUpEtat" v-on:fermerPopUp="popUpEtat = false" v-bind:id-oeuvre="this.livre.id"  v-bind:nom-entier="collerNom"></PopUpAfficherExemplaire>
+      <PopUpAfficherExemplaire v-if="popUpEtat" v-on:fermerPopUp="popUpEtat = false" v-bind:id-oeuvre="this.oeuvreId"  v-bind:nom-entier="collerNom"></PopUpAfficherExemplaire>
     </div>
   </div>
 </template>
 
 <script>
 import PopUpAfficherExemplaire from "@/components/PopUpAfficherExemplaire";
+import axios from "axios";
 
 export default {
   components: {
@@ -23,17 +24,35 @@ export default {
   data() {
     return {
       popUpEtat: false,
+      oeuvreId: null,
+      rep: null,
     }
   },
   computed: {
     collerNom: function (){
-      return (this.livre.nom + ' ' + this.livre.sousNom)
+      return (this.livre.nom + ' - ' + this.livre.sousNom)
     }
+  },
+  mounted() {
+    let param = new URLSearchParams()
+    param.append('nom', this.livre.nom)
+    param.append('sousNom', this.livre.sousNom)
+    axios.get('/oeuvres/identificationLivre', {params: param})
+        .then(response => (this.oeuvreId = response.data.id))
   },
   props: ['livre', 'titreRecherche', 'sousTitreRecherche'],
   methods: {
     ouvrePopUpAfficherExemplaire() {
       this.popUpEtat = true
+    },
+    supprimerLivre() {
+      let param = new URLSearchParams()
+      param.append('oeuvre', this.oeuvreId)
+      axios.delete('/oeuvres/supprimer', {params: param})
+          .then(response => {
+            this.truc = response.data
+            this.$emit('supprimerOeuvre')
+          })
     }
   }
 }

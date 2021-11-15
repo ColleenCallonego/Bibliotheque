@@ -60,7 +60,7 @@ export default {
   },
   computed: {
     changeClicAjouterLivre: function (){
-      if (this.changeClicAjouterOeuvre() && this.sousNomLivre != '' && this.resumeLivre != ''){
+      if (!this.changeClicAjouterOeuvre() && this.sousNomLivre != '' && this.resumeLivre != ''){
         return false
       }
       else {
@@ -68,7 +68,7 @@ export default {
       }
     },
     changeClicAjouterMagazine: function (){
-      if (this.changeClicAjouterOeuvre() && this.numeroMagazine != '' && this.categorieMagazine != ''){
+      if (!this.changeClicAjouterOeuvre() && this.numeroMagazine != '' && this.categorieMagazine != ''){
         return false
       }
       else {

@@ -1,10 +1,10 @@
 <template>
   <div>
-    <h2>Afficher les exemplaires de {{nomEntier}}</h2>
+    <h2>Affiche les exemplaires de : {{nomEntier}}</h2>
     <button v-on:click="$emit('fermerPopUp')">RETOUR</button>
 
     <button v-on:click="ouvrePopUpAjouterExemplaire">AJOUTER EXEMPLAIRE</button>
-    <PopUpAjouterExemplaire v-if="popUpEtat" v-on:fermerPopUp="popUpEtat = false" v-bind:titre="titre"></PopUpAjouterExemplaire>
+    <PopUpAjouterExemplaire v-if="popUpEtat" v-on:fermerPopUp="popUpEtat = false" v-bind:id-oeuvre="idOeuvre"></PopUpAjouterExemplaire>
 
     <ListeExemplaireComponent v-bind:exemplaires-tab="exemplairesTab"></ListeExemplaireComponent>
   </div>
@@ -13,6 +13,7 @@
 <script>
 import PopUpAjouterExemplaire from "@/components/PopUpAjouterExemplaire";
 import ListeExemplaireComponent from "@/components/ListeExemplaireComponent";
+import axios from "axios";
 
 export default {
   components: {
@@ -22,21 +23,15 @@ export default {
   data() {
     return {
       popUpEtat: false,
-      exemplairesTab: [
-        {
-          id:1,
-          code: "A5NF6"
-        },
-        {
-          id:2,
-          code: "K85GT"
-        },
-        {
-          id:3,
-          code: "3MP9Q"
-        }
-      ]
+      exemplairesTab: []
     }
+  },
+  mounted() {
+    let param = new URLSearchParams()
+    param.append('oeuvre', this.idOeuvre)
+    axios.get('/exemplaires/exemplairePourOeuvre', {params: param})
+        .then(response => (this.exemplairesTab = response.data))
+    console.log(this.exemplairesTab)
   },
   methods: {
     ouvrePopUpAjouterExemplaire() {
