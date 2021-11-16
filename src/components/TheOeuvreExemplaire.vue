@@ -2,7 +2,7 @@
   <div>
     <h1>Oeuvres et exemplaires</h1>
     <button v-on:click="ouvrePopUpAjouterOeuvre">AJOUTER OEUVRE</button>
-    <PopUpAjouterOeuvre v-if="popUpEtat" v-on:fermerPopUp="popUpEtat = false"></PopUpAjouterOeuvre>
+    <PopUpAjouterOeuvre v-if="popUpEtat" v-on:fermerPopUp="popUpEtat = false" v-on:ajouterOeuvre="recupererToutesLesOeuvres"></PopUpAjouterOeuvre>
 
     <ListeOeuvreComponent v-bind:livres-tab="livresTab" v-bind:magazines-tab="magazinesTab" v-on:supprimerOeuvre="recupererToutesLesOeuvres"></ListeOeuvreComponent>
   </div>

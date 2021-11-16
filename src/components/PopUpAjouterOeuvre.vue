@@ -54,7 +54,6 @@ export default {
       numeroMagazine: '',
       categorieMagazine: '',
       dureePret: '',
-      errors: [],
       reponseAPI: null,
     }
   },
@@ -94,9 +93,9 @@ export default {
       param.append('resume', this.resumeLivre)
       param.append('dureePret', this.dureePret)
       axios.post('/oeuvres/creerLivre', param)
-          .then(response => (this.reponseAPI = response.data))
-          .catch(e => {
-            this.errors.push(e)
+          .then(response => {
+            this.reponseAPI = response.data
+            this.$emit('ajouterOeuvre')
           })
     },
     postFormMagazine(){
@@ -108,9 +107,9 @@ export default {
       param.append('categorie', this.categorieMagazine)
       param.append('dureePret', this.dureePret)
       axios.post('/oeuvres/creerMagazine', param)
-          .then(response => (this.reponseAPI = response.data))
-          .catch(e => {
-            this.errors.push(e)
+          .then(response => {
+            this.reponseAPI = response.data
+            this.$emit('ajouterOeuvre')
           })
     }
   }

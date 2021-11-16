@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="reservationsTab != 'inexistant'">
     <h2>Liste des réservations en cours </h2>
     <ListeReservationItem
         v-for="reservation in reservationsTab"
@@ -10,6 +10,9 @@
     >
     </ListeReservationItem>
 
+  </div>
+  <div v-else>
+    <h2>Aucune réservation en cours</h2>
   </div>
 </template>
 

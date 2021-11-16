@@ -5,7 +5,7 @@
     <ListeExemplaireItem
         v-for="exemplaire in exemplairesTab"
         v-bind:key="exemplaire.id"
-        v-bind:code="exemplaire.code"
+        v-bind:exemplaire="exemplaire"
     >
     </ListeExemplaireItem>
   </div>

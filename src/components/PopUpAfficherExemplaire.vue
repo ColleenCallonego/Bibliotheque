@@ -4,9 +4,9 @@
     <button v-on:click="$emit('fermerPopUp')">RETOUR</button>
 
     <button v-on:click="ouvrePopUpAjouterExemplaire">AJOUTER EXEMPLAIRE</button>
-    <PopUpAjouterExemplaire v-if="popUpEtat" v-on:fermerPopUp="popUpEtat = false" v-bind:id-oeuvre="idOeuvre"></PopUpAjouterExemplaire>
+    <PopUpAjouterExemplaire v-if="popUpEtat" v-on:fermerPopUp="popUpEtat = false" v-bind:id-oeuvre="idOeuvre" v-on:ajouterExemplaire="recupererTousLesExemplaire"></PopUpAjouterExemplaire>
 
-    <ListeExemplaireComponent v-bind:exemplaires-tab="exemplairesTab"></ListeExemplaireComponent>
+    <ListeExemplaireComponent v-bind:exemplaires-tab="exemplairesTab" v-on:modifierSupprimerExemplaire="recupererTousLesExemplaire"></ListeExemplaireComponent>
   </div>
 </template>
 
@@ -27,15 +27,17 @@ export default {
     }
   },
   mounted() {
-    let param = new URLSearchParams()
-    param.append('oeuvre', this.idOeuvre)
-    axios.get('/exemplaires/exemplairePourOeuvre', {params: param})
-        .then(response => (this.exemplairesTab = response.data))
-    console.log(this.exemplairesTab)
+    this.recupererTousLesExemplaire()
   },
   methods: {
     ouvrePopUpAjouterExemplaire() {
       this.popUpEtat = true
+    },
+    recupererTousLesExemplaire(){
+      let param = new URLSearchParams()
+      param.append('oeuvre', this.idOeuvre)
+      axios.get('/exemplaires/exemplairePourOeuvre', {params: param})
+          .then(response => (this.exemplairesTab = response.data))
     }
   }
 }
