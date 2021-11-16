@@ -97,8 +97,8 @@ export default {
       axios.get('/exemplaires/exemplaireDisponible', {params: param})
           .then(response => {
             if (response.data != ''){
-              this.exemplaireId = response.data[0].id
-              this.codeExemplaire = response.data[0].codeExemplaire
+              this.exemplaireId = response.data.id
+              this.codeExemplaire = response.data.codeExemplaire
             }
             else{
               this.exemplaireId = 'inexistant'

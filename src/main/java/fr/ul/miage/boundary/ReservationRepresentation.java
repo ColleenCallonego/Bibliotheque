@@ -68,7 +68,9 @@ public class ReservationRepresentation {
         reservation.setEtat(etat);
         repositoryR.save(reservation);
         Oeuvre oeuvre = reservation.getOeuvre();
-        oeuvre.setNbRes(oeuvre.getNbRes() - 1);
+        if (etat.equals("Annulee")){
+            oeuvre.setNbRes(oeuvre.getNbRes() - 1);
+        }
         return "Réservation modifiée";
     }
 

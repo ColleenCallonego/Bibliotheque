@@ -1,8 +1,8 @@
 <template>
   <div>
     <h1>Réservation d'oeuvres</h1>
-    <ReservationIdentifierUsagerComponent v-on:recupUsager="recupererListeReservation($event)"></ReservationIdentifierUsagerComponent>
-    <ReservationComponent v-bind:id-usager="usagerReservations.id" v-bind:reservations-tab="usagerReservations.reservationsTab"></ReservationComponent>
+    <ReservationIdentifierUsagerComponent v-on:recupUsager="recupererListeReservationEtUsager($event)"></ReservationIdentifierUsagerComponent>
+    <ReservationComponent v-bind:id-usager="usagerReservations.id" v-bind:reservations-tab="usagerReservations.reservationsTab" v-on:changerReservation="recupererListeReservation"></ReservationComponent>
   </div>
 </template>
 
@@ -24,9 +24,11 @@ export default {
     }
   },
   methods: {
-    recupererListeReservation(idUsager){
+    recupererListeReservationEtUsager(idUsager){
       this.usagerReservations.id = idUsager
-
+      this.recupererListeReservation()
+    },
+    recupererListeReservation(){
       let param = new URLSearchParams()
       param.append('usager', this.usagerReservations.id)
       axios.get('/reservations/pourUsager', {params: param})

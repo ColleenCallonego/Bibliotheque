@@ -89,7 +89,10 @@ export default {
       param.append('oeuvre', this.oeuvreIdReservation)
       param.append('usager', this.idUsager)
       axios.post('/reservations/creer', param)
-          .then(response => (this.reponseAPI = response.data))
+          .then(response => {
+            this.reponseAPI = response.data
+            this.$emit('changerReservation')
+          })
     },
     postFormReserver(){
       this.oeuvreIdReservation = null

@@ -5,6 +5,8 @@
         v-for="reservation in reservationsTab"
         v-bind:key="reservation.id"
         v-bind:reservation="reservation"
+        v-bind:id-usager="idUsager"
+        v-on:changerReservation="$emit('changerReservation')"
     >
     </ListeReservationItem>
 
