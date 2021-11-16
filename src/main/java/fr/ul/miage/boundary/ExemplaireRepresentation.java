@@ -65,20 +65,22 @@ public class ExemplaireRepresentation {
     }
 
     @GetMapping(value = "/exemplaireDisponible")
-    public List<Exemplaire> exemplaireDispo(Oeuvre oeuvre) {
-        List<Exemplaire> exemplaires = repository.findByEtatEtOeuvre(oeuvre);
-        return exemplaires;
+    public Exemplaire exemplaireDispo(Oeuvre oeuvre) {
+        return repository.findByEtatEtOeuvre(oeuvre).get(0);
     }
 
     @GetMapping(value = "/identification")
     public Exemplaire identifier(Oeuvre oeuvre, String codeExemplaire) {
-        Exemplaire exemplaire = repository.findByOeuvreEtCode(oeuvre, codeExemplaire);
-        return exemplaire;
+        return repository.findByOeuvreEtCode(oeuvre, codeExemplaire);
     }
 
     @GetMapping(value = "/exemplairePourOeuvre")
     public List<Exemplaire> exemplairesOeuvre(Oeuvre oeuvre) {
-        List<Exemplaire> exemplaires = repository.findByOeuvre(oeuvre);
-        return exemplaires;
+        return repository.findByOeuvre(oeuvre);
+    }
+
+    @GetMapping(value = "/exemplaireReserve")
+    public Exemplaire exemplaireReserve(Oeuvre oeuvre) {
+        return repository.findByEtatEtOeuvreReserve(oeuvre).get(0);
     }
 }

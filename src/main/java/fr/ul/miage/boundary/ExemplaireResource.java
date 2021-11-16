@@ -18,4 +18,7 @@ public interface ExemplaireResource extends JpaRepository<Exemplaire, String> {
 
     @Query("SELECT e FROM Exemplaire e WHERE oeuvre_id = ?1")
     public List<Exemplaire> findByOeuvre(Oeuvre oeuvre);
+
+    @Query("SELECT e FROM Exemplaire e WHERE etat ='Reserve' AND oeuvre_id = ?1")
+    public List<Exemplaire> findByEtatEtOeuvreReserve(Oeuvre oeuvre);
 }
