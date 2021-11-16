@@ -18,6 +18,6 @@ export default {
   components: {
     ListeReservationItem
   },
-  props: ['idUsager', 'reservationsTab']
+  props: ['idUsager', 'reservationsTab'],
 }
 </script>

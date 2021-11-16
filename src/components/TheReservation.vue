@@ -1,6 +1,5 @@
 <template>
   <div>
-    {{usagerReservations.reservationsTab}}
     <h1>Réservation d'oeuvres</h1>
     <ReservationIdentifierUsagerComponent v-on:recupUsager="recupererListeReservation($event)"></ReservationIdentifierUsagerComponent>
     <ReservationComponent v-bind:id-usager="usagerReservations.id" v-bind:reservations-tab="usagerReservations.reservationsTab"></ReservationComponent>
@@ -34,7 +33,6 @@ export default {
           .then(response => {
             if (response.data != ''){
               this.usagerReservations.reservationsTab = response.data
-              console.log(response.data)
             }
             else{
               this.usagerReservations.reservationsTab = 'inexistant'
