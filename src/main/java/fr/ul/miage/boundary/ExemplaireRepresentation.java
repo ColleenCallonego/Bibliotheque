@@ -1,5 +1,8 @@
 package fr.ul.miage.boundary;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -43,8 +46,8 @@ public class ExemplaireRepresentation {
 
     @PostMapping(value = "/creer")
     @Transactional
-    public String creerExemplaire(Oeuvre oeuvre, String edition, Date dateParution, String codeExemplaire) {
-        Exemplaire e = new Exemplaire(oeuvre, "En rayon", edition, dateParution, codeExemplaire);
+    public String creerExemplaire(Oeuvre oeuvre, String edition, String dateParution, String codeExemplaire) throws ParseException {
+        Exemplaire e = new Exemplaire(oeuvre, "En rayon", edition, new SimpleDateFormat("yyyy-MM-dd").parse(dateParution), codeExemplaire);
         repository.save(e);
         return "Exemplaire crée";
     }
