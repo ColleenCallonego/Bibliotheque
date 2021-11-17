@@ -19,7 +19,7 @@
           v-bind:usager="usager"
           v-bind:nom-recherche="nomUsagerRecherche"
           v-bind:prenom-recherche="prenomUsagerRecherche"
-          v-on:supprimerUsager="$emit('supprimerUsager')"
+          v-on:supprimerModifierUsager="$emit('supprimerModifierUsager')"
       >
       </ListeUsagerItem>
     </div>

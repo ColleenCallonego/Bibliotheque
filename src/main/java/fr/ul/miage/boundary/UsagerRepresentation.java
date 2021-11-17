@@ -53,7 +53,7 @@ public class UsagerRepresentation {
         return "Usager supprimé";
     }
 
-    @PutMapping(value = "/modifier")
+    @PatchMapping(value = "/modifier")
     @Transactional
     public String modifier(Usager usager, String nom, String prenom, String mail, String adresse) {
         usager.setNom(nom);

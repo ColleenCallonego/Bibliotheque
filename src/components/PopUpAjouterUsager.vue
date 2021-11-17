@@ -50,9 +50,9 @@ export default {
       param.append('mail', this.mail)
       param.append('adresse', this.adresse)
       axios.post('/usagers/creer', param)
-          .then(response => (this.reponseAPI = response.data))
-          .catch(e => {
-            this.errors.push(e)
+          .then(response => {
+            this.reponseAPI = response.data
+            this.$emit('ajouterUsager')
           })
     }
   }

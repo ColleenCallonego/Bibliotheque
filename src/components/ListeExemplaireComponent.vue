@@ -6,6 +6,7 @@
         v-for="exemplaire in exemplairesTab"
         v-bind:key="exemplaire.id"
         v-bind:exemplaire="exemplaire"
+        v-on:modifierSupprimerExemplaire="$emit('modifierSupprimerExemplaire')"
     >
     </ListeExemplaireItem>
   </div>
