@@ -3,6 +3,7 @@ package fr.ul.miage.entity;
 import java.util.Date;
 import java.util.UUID;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
@@ -14,7 +15,7 @@ public class Exemplaire {
 
     @Id
     private String id;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     private Oeuvre oeuvre;
     private String etat;
     private String edition;

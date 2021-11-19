@@ -3,6 +3,7 @@ package fr.ul.miage.boundary;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import javax.transaction.Transactional;
 
@@ -32,6 +33,8 @@ public class ReservationRepresentation {
     ReservationAssembler assembler;
     @Autowired
     OeuvreResource repositoryO;
+    @Autowired
+    UsagerResource repositoryU;
 
     @GetMapping(value = "/{reservationId}")
     public ResponseEntity<?> getOneReservation(@PathVariable("reservationId") String id) {
@@ -51,7 +54,14 @@ public class ReservationRepresentation {
         Reservation r = new Reservation(date, "En cours", oeuvre, usager);
         repositoryR.save(r);
         oeuvre.setNbRes(oeuvre.getNbRes() + 1);
+        Set<Reservation> setReservations = oeuvre.getReservations();
+        setReservations.add(r);
+        oeuvre.setReservations(setReservations);
         repositoryO.save(oeuvre);
+        Set<Reservation> setReservations2 = usager.getReservations();
+        setReservations2.add(r);
+        usager.setReservations(setReservations2);
+        repositoryU.save(usager);
         return "Réservation créée";
     }
 
@@ -68,7 +78,7 @@ public class ReservationRepresentation {
         reservation.setEtat(etat);
         repositoryR.save(reservation);
         Oeuvre oeuvre = reservation.getOeuvre();
-        if (etat.equals("Annulee")){
+        if (etat.equals("Annulee")) {
             oeuvre.setNbRes(oeuvre.getNbRes() - 1);
         }
         return "Réservation modifiée";

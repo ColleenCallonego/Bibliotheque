@@ -1,12 +1,16 @@
 package fr.ul.miage.entity;
 
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
+import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -22,6 +26,10 @@ public class Oeuvre {
     private Integer nbPage;
     private Integer nbRes;
     private Integer dureePret;
+    @OneToMany(cascade = CascadeType.REMOVE)
+    private Set<Exemplaire> exemplaires;
+    @OneToMany(cascade = CascadeType.REMOVE)
+    private Set<Reservation> reservations;
 
     public Oeuvre() {
 
@@ -34,6 +42,24 @@ public class Oeuvre {
         this.nbPage = nbPage;
         this.nbRes = nbRes;
         this.dureePret = dureePret;
+        this.exemplaires = new HashSet<>();
+        this.reservations = new HashSet<>();
+    }
+
+    public Set<Exemplaire> getExemplaires() {
+        return this.exemplaires;
+    }
+
+    public void setExemplaires(Set<Exemplaire> exemplaires) {
+        this.exemplaires = exemplaires;
+    }
+
+    public Set<Reservation> getReservations() {
+        return this.reservations;
+    }
+
+    public void setReservations(Set<Reservation> reservations) {
+        this.reservations = reservations;
     }
 
     public String getId() {

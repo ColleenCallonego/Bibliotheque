@@ -1,5 +1,7 @@
 package fr.ul.miage.entity;
 
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 import javax.persistence.*;
@@ -15,6 +17,10 @@ public class Usager {
     private String mail;
     private String adresse;
     private Integer penalite;
+    @OneToMany(cascade = CascadeType.REMOVE)
+    private Set<Reservation> reservations;
+    @OneToMany(cascade = CascadeType.REMOVE)
+    private Set<Emprunt> emprunts;
 
     public Usager() {
 
@@ -27,6 +33,8 @@ public class Usager {
         this.mail = mail;
         this.adresse = adresse;
         this.penalite = penalite;
+        this.reservations = new HashSet<>();
+        this.emprunts = new HashSet<>();
     }
 
     public String getId() {
@@ -35,6 +43,22 @@ public class Usager {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public Set<Reservation> getReservations() {
+        return this.reservations;
+    }
+
+    public void setReservations(Set<Reservation> reservations) {
+        this.reservations = reservations;
+    }
+
+    public Set<Emprunt> getEmprunts() {
+        return this.emprunts;
+    }
+
+    public void setEmprunts(Set<Emprunt> emprunts) {
+        this.emprunts = emprunts;
     }
 
     public String getMail() {

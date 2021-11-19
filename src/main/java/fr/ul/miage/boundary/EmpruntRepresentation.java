@@ -2,6 +2,7 @@ package fr.ul.miage.boundary;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.server.ExposesResourceFor;
@@ -55,6 +56,10 @@ public class EmpruntRepresentation {
         repositoryEx.save(exemplaire);
         Emprunt e = new Emprunt("En cours", exemplaire, usager);
         repositoryE.save(e);
+        Set<Emprunt> set = usager.getEmprunts();
+        set.add(e);
+        usager.setEmprunts(set);
+        repositoryU.save(usager);
         return "Emprunt créé";
     }
 

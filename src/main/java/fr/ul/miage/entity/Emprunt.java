@@ -3,6 +3,7 @@ package fr.ul.miage.entity;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
@@ -17,9 +18,9 @@ public class Emprunt {
     private LocalDateTime date;
     private LocalDateTime dateRendu;
     private String Etat;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     private Exemplaire exemplaire;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     private Usager usager;
 
     public Emprunt() {
