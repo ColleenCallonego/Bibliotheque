@@ -1,9 +1,10 @@
 <template>
-  <div>
-    <h1>BIBLIOTHEQUE</h1>
-    <p>Colleen Callonego</p>
-    <p>Gabriel Couroux</p>
-    <p>M2 MIAGE 2021-2022</p>
-    <img src="@/assets/logo-IDMC.jpg">
+  <div class="text-center">
+    <b-card title="PROJET PATRON" sub-title="Bibliothèque">
+      <b-card-text>
+        Colleen Callonego & Gabriel Couroux
+      </b-card-text>
+      <b-card-text><img src="@/assets/logo-IDMC.jpg"></b-card-text>
+    </b-card>
   </div>
 </template>

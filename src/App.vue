@@ -1,16 +1,20 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <img src="@/assets/livres.png" v-on:click="currentTab = 'Home'">
-      <button
+    <b-navbar style="background-color: antiquewhite; box-shadow: 0px 5px 3px darkgray; z-index: 1">
+      <b-nav>
+        <b-nav-item><img width="68" height="68" src="@/assets/livres.png" v-on:click="currentTab = 'Home'"></b-nav-item>
+        <b-nav-item>
+          <b-button pill style="height: 68px;vertical-align: middle; background-color: rgba(119,141,175,0.16); color: black; margin: 0px 50px 0px 50px"
           v-for="tab in tabs"
           v-bind:key="tab"
           v-on:click="currentTab = tab"
-      >
-        {{ tab }}
-      </button>
-    </div>
-    <component v-bind:is="currentTabComponent"></component>
+          >
+          {{ tab }}
+          </b-button>
+        </b-nav-item>
+      </b-nav>
+    </b-navbar>
+    <component v-bind:is="currentTabComponent" style="background-color: #fffaf8;position:absolute;height:100%;width:100%;"></component>
   </div>
 </template>
 
@@ -37,9 +41,4 @@ export default {
     }
   }
 }
-
-
-
-
-
 </script>

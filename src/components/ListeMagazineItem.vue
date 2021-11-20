@@ -30,7 +30,7 @@ export default {
   },
   computed: {
     collerNom: function (){
-      return (this.magazine.nom + ' - ' + this.magazine.numero)
+      return (this.magazine.nom + ' N°' + this.magazine.numero)
     }
   },
   mounted() {

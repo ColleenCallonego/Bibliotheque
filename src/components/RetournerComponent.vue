@@ -1,42 +1,59 @@
 <template>
   <div>
-    <h2>Retours</h2>
-    <div>
-      <input type="text" v-model="nomUsagerRetour">
-      <label>Nom usager</label>
-      <input type="text" v-model="prenomUsagerRetour">
-      <label>Prénom usager</label><br>
+    <b-card title="Retours" style="max-width: 50rem; box-shadow: 0px 5px 10px darkgray">
+      <div>
 
-      <input type="radio" value="livre" v-model="typeOeuvreRetour" v-on:click="titreOeuvreRetour = '';numeroMagazineRetour = ''">
-      <label>Livre</label>
-      <input type="radio" value="magazine" v-model="typeOeuvreRetour" v-on:click="titreOeuvreRetour = '';sousTitreLivreRetour = ''">
-      <label>Magazine</label><br>
+        <div class="input-class">
+          <b-icon class="bIcone" icon="person-fill"></b-icon>
+          <input type="text" v-model="nomUsagerRetour">
+          <label>Nom usager</label>
+          <input type="text" v-model="prenomUsagerRetour">
+          <label>Prénom usager</label><br>
+        </div>
 
-      <input type="text" v-model="titreOeuvreRetour">
-      <label>Titre</label>
-      <span v-if="typeOeuvreRetour == 'livre'">
-        <input type="text" v-model="sousTitreLivreRetour">
-        <label>Sous-titre</label>
-      </span>
-      <span v-else-if="typeOeuvreRetour == 'magazine'">
-        <input type="number" min="1" v-model="numeroMagazineRetour">
-        <label>Numéro</label>
-      </span>
+        <div class="input-class">
+          <input type="radio" value="livre" v-model="typeOeuvreRetour" v-on:click="titreOeuvreRetour = '';numeroMagazineRetour = ''">
+          <label>Livre</label>
+          <input type="radio" value="magazine" v-model="typeOeuvreRetour" v-on:click="titreOeuvreRetour = '';sousTitreLivreRetour = ''">
+          <label>Magazine</label><br>
+        </div>
 
-      <br>
-      <input type="text" v-model="codeExemplaireRetour">
-      <label>Code exemplaire</label><br>
+        <div class="input-class">
+          <b-icon class="bIcone" icon="book-fill"></b-icon>
+          <input type="text" v-model="titreOeuvreRetour">
+          <label>Titre</label>
+          <span v-if="typeOeuvreRetour == 'livre'">
+            <input type="text" v-model="sousTitreLivreRetour">
+            <label>Sous-titre</label>
+          </span>
+          <span v-else-if="typeOeuvreRetour == 'magazine'">
+            <input type="number" min="1" v-model="numeroMagazineRetour">
+            <label>Numéro</label>
+          </span>
+        </div>
 
-      <input type="checkbox" v-model="checked">
-      <label>Abîmé ?</label><br>
+        <div class="input-class">
+          <input type="text" v-model="codeExemplaireRetour">
+          <label>Code exemplaire</label><br>
+        </div>
 
-      <button v-bind:disabled="changeClicRendre" v-on:click="postFormRetour()">RENDRE</button><span>{{reponseAPI}}</span><br>
+        <div class="input-class">
+          <input type="checkbox" v-model="checked">
+          <label>Abîmé ?</label><br>
+        </div>
 
-      <p v-if="this.usagerIdRetour == 'inexistant'">Nous n'avons pas trouvé votre compte usager, vérifiez l'orthographe ou créez-vous un compte.</p>
-      <p v-else-if="this.oeuvreIdRetour == 'inexistant'">Malheureusement nous ne connaisons pas l'oeuvre que vous voulez rendre, vérifiez l'orthographe.</p>
-      <p v-else-if="this.exemplaireIdRetour == 'inexistant'">Malheureusement nous ne connaisons pas l'exemplaire que vous voulez rendre, vérifiez l'orthographe.</p>
-      <p v-else-if="this.empruntIdRetour == 'inexistant'">Il semblerait que vous n'ayez jamais emprunté cet exemplaire, que fait-vous avec ?</p>
-    </div>
+        <div class="input-class">
+          <button v-bind:disabled="changeClicRendre" v-on:click="postFormRetour()">RENDRE</button><span>{{reponseAPI}}</span><br>
+
+          <p v-if="this.usagerIdRetour == 'inexistant'">Nous n'avons pas trouvé votre compte usager, vérifiez l'orthographe ou créez-vous un compte.</p>
+          <p v-else-if="this.oeuvreIdRetour == 'inexistant'">Malheureusement nous ne connaisons pas l'oeuvre que vous voulez rendre, vérifiez l'orthographe.</p>
+          <p v-else-if="this.exemplaireIdRetour == 'inexistant'">Malheureusement nous ne connaisons pas l'exemplaire que vous voulez rendre, vérifiez l'orthographe.</p>
+          <p v-else-if="this.empruntIdRetour == 'inexistant'">Il semblerait que vous n'ayez jamais emprunté cet exemplaire, que fait-vous avec ?</p>
+        </div>
+
+      </div>
+    </b-card>
+
   </div>
 </template>
 

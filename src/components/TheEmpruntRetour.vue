@@ -1,8 +1,8 @@
 <template>
-  <div>
+  <div style="padding: 10px 0 0 20px">
     <h1>Emprunts et retours d'oeuvres</h1>
-    <EmprunterComponent/>
-    <RetournerComponent/>
+    <EmprunterComponent class="component-card"></EmprunterComponent>
+    <RetournerComponent class="component-card"></RetournerComponent>
   </div>
 </template>
 
@@ -16,3 +16,10 @@ export default {
   }
 }
 </script>
+
+<style>
+.component-card{
+  margin: 20px 0 20px 0;
+}
+
+</style>

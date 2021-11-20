@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h3>AJOUTER EXEMPALIRE</h3>
+    <h3>AJOUTER EXEMPLAIRE</h3>
     <button v-on:click="$emit('fermerPopUp')">ANNULER</button>
 
     <div>

@@ -39,7 +39,7 @@
     <div v-if="typeRecherhce != 'livre'">
       <ListeMagazineItem
           v-for="magazine in magazinesTab"
-          v-bind:key="magazine.nom + ' - ' + magazine.numero"
+          v-bind:key="magazine.nom + ' N°' + magazine.numero"
           v-bind:magazine="magazine"
           v-bind:nom-recherche="titreOeuvreRecherche"
           v-bind:numero-recherche="numeroMagazineRecherche"
