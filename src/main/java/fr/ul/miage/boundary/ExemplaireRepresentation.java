@@ -2,25 +2,20 @@ package fr.ul.miage.boundary;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.server.ExposesResourceFor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import fr.ul.miage.assembler.ExemplaireAssembler;
 import fr.ul.miage.entity.Exemplaire;
 import fr.ul.miage.entity.Oeuvre;
 
@@ -31,26 +26,13 @@ public class ExemplaireRepresentation {
     @Autowired
     ExemplaireResource repository;
     @Autowired
-    ExemplaireAssembler assembler;
-    @Autowired
     OeuvreResource repositoryO;
-
-    @GetMapping(value = "/{exemplaireId}")
-    public ResponseEntity<?> getOneExemplaire(@PathVariable("exemplaireId") String id) {
-        return Optional.ofNullable(repository.findById(id)).filter(Optional::isPresent)
-                .map(i -> ResponseEntity.ok(assembler.toModel(i.get()))).orElse(ResponseEntity.notFound().build());
-    }
-
-    @GetMapping
-    public ResponseEntity<?> getAllExemplaires() {
-        return ResponseEntity.ok(assembler.toCollectionModel(repository.findAll()));
-    }
 
     @PostMapping(value = "/creer")
     @Transactional
     public String creerExemplaire(Oeuvre oeuvre, String edition, String dateParution, String codeExemplaire)
             throws ParseException {
-        Exemplaire e = new Exemplaire(oeuvre, "En rayon", edition,
+        Exemplaire e = new Exemplaire(oeuvre.getId(), "En rayon", edition,
                 new SimpleDateFormat("yyyy-MM-dd").parse(dateParution), codeExemplaire);
         repository.save(e);
         Set<Exemplaire> set = oeuvre.getExemplaires();
@@ -77,21 +59,21 @@ public class ExemplaireRepresentation {
 
     @GetMapping(value = "/exemplaireDisponible")
     public Exemplaire exemplaireDispo(Oeuvre oeuvre) {
-        return repository.findByEtatEtOeuvre(oeuvre).get(0);
+        return repository.findByEtatEtOeuvre(oeuvre.getId()).get(0);
     }
 
     @GetMapping(value = "/identification")
     public Exemplaire identifier(Oeuvre oeuvre, String codeExemplaire) {
-        return repository.findByOeuvreEtCode(oeuvre, codeExemplaire);
+        return repository.findByOeuvreEtCode(oeuvre.getId(), codeExemplaire);
     }
 
     @GetMapping(value = "/exemplairePourOeuvre")
     public List<Exemplaire> exemplairesOeuvre(Oeuvre oeuvre) {
-        return repository.findByOeuvre(oeuvre);
+        return repository.findByOeuvre(oeuvre.getId());
     }
 
     @GetMapping(value = "/exemplaireReserve")
     public Exemplaire exemplaireReserve(Oeuvre oeuvre) {
-        return repository.findByEtatEtOeuvreReserve(oeuvre).get(0);
+        return repository.findByEtatEtOeuvreReserve(oeuvre.getId()).get(0);
     }
 }

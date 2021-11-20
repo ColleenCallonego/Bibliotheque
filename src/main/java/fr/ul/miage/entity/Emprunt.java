@@ -3,10 +3,8 @@ package fr.ul.miage.entity;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -18,18 +16,16 @@ public class Emprunt {
     private LocalDateTime date;
     private LocalDateTime dateRendu;
     private String Etat;
-    @ManyToOne(cascade = CascadeType.REMOVE)
-    private Exemplaire exemplaire;
-    @ManyToOne(cascade = CascadeType.REMOVE)
-    private Usager usager;
+    private String exemplaire;
+    private String usager;
 
     public Emprunt() {
     }
 
-    public Emprunt(String etat, Exemplaire exemplaire, Usager usager) {
+    public Emprunt(String etat, String exemplaire, String usager, int dureePret) {
         this.id = UUID.randomUUID().toString();
         this.date = LocalDateTime.now();
-        this.dateRendu = this.date.plusDays(exemplaire.getOeuvre().getDureePret());
+        this.dateRendu = this.date.plusDays(dureePret);
         this.Etat = etat;
         this.exemplaire = exemplaire;
         this.usager = usager;
@@ -67,19 +63,19 @@ public class Emprunt {
         this.Etat = Etat;
     }
 
-    public Exemplaire getExemplaire() {
+    public String getExemplaire() {
         return this.exemplaire;
     }
 
-    public void setExemplaire(Exemplaire exemplaire) {
+    public void setExemplaire(String exemplaire) {
         this.exemplaire = exemplaire;
     }
 
-    public Usager getUsager() {
+    public String getUsager() {
         return this.usager;
     }
 
-    public void setUsager(Usager usager) {
+    public void setUsager(String usager) {
         this.usager = usager;
     }
 

@@ -2,13 +2,9 @@ package fr.ul.miage.boundary;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.server.ExposesResourceFor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import fr.ul.miage.assembler.UsagerAssembler;
 import fr.ul.miage.entity.Usager;
-
-import java.util.Optional;
 
 import javax.transaction.Transactional;
 
@@ -19,19 +15,6 @@ import javax.transaction.Transactional;
 public class UsagerRepresentation {
     @Autowired
     UsagerResource repository;
-    @Autowired
-    UsagerAssembler assembler;
-
-    @GetMapping(value = "/{usagerId}")
-    public ResponseEntity<?> getOneUsager(@PathVariable("usagerId") String id) {
-        return Optional.ofNullable(repository.findById(id)).filter(Optional::isPresent)
-                .map(i -> ResponseEntity.ok(assembler.toModel(i.get()))).orElse(ResponseEntity.notFound().build());
-    }
-
-    @GetMapping
-    public ResponseEntity<?> getAllUsagers() {
-        return ResponseEntity.ok(assembler.toCollectionModel(repository.findAll()));
-    }
 
     @PostMapping(value = "/creer")
     @Transactional
