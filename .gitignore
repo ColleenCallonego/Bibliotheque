@@ -8,3 +8,4 @@
 .settings/org.eclipse.m2e.core.prefs
 *.class
 src/main/resources/application.properties
+node_modules

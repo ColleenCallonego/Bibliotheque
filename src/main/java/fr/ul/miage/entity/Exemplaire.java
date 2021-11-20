@@ -3,10 +3,8 @@ package fr.ul.miage.entity;
 import java.util.Date;
 import java.util.UUID;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -15,8 +13,7 @@ public class Exemplaire {
 
     @Id
     private String id;
-    @ManyToOne(cascade = CascadeType.REMOVE)
-    private Oeuvre oeuvre;
+    private String oeuvre;
     private String etat;
     private String edition;
     private Date dateParution;
@@ -25,7 +22,7 @@ public class Exemplaire {
     public Exemplaire() {
     }
 
-    public Exemplaire(Oeuvre oeuvre, String etat, String edition, Date dateParution, String codeExemplaire) {
+    public Exemplaire(String oeuvre, String etat, String edition, Date dateParution, String codeExemplaire) {
         this.id = UUID.randomUUID().toString();
         this.oeuvre = oeuvre;
         this.etat = etat;
@@ -42,11 +39,11 @@ public class Exemplaire {
         this.id = id;
     }
 
-    public Oeuvre getOeuvre() {
+    public String getOeuvre() {
         return this.oeuvre;
     }
 
-    public void setOeuvre(Oeuvre oeuvre) {
+    public void setOeuvre(String oeuvre) {
         this.oeuvre = oeuvre;
     }
 

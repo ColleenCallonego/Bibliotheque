@@ -3,10 +3,8 @@ package fr.ul.miage.entity;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -17,15 +15,13 @@ public class Reservation {
     private String id;
     private LocalDateTime dateReservation;
     private String Etat;
-    @ManyToOne(cascade = CascadeType.REMOVE)
-    private Oeuvre oeuvre;
-    @ManyToOne(cascade = CascadeType.REMOVE)
-    private Usager usager;
+    private String oeuvre;
+    private String usager;
 
     public Reservation() {
     }
 
-    public Reservation(LocalDateTime dateReservation, String Etat, Oeuvre oeuvre, Usager usager) {
+    public Reservation(LocalDateTime dateReservation, String Etat, String oeuvre, String usager) {
         this.id = UUID.randomUUID().toString();
         this.dateReservation = dateReservation;
         this.Etat = Etat;
@@ -57,19 +53,19 @@ public class Reservation {
         this.Etat = Etat;
     }
 
-    public Oeuvre getOeuvre() {
+    public String getOeuvre() {
         return this.oeuvre;
     }
 
-    public void setOeuvre(Oeuvre oeuvre) {
+    public void setOeuvre(String oeuvre) {
         this.oeuvre = oeuvre;
     }
 
-    public Usager getUsager() {
+    public String getUsager() {
         return this.usager;
     }
 
-    public void setUsager(Usager usager) {
+    public void setUsager(String usager) {
         this.usager = usager;
     }
 
