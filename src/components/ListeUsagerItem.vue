@@ -1,30 +1,37 @@
 <template>
-  <div v-if="this.usager.nom.indexOf(this.nomRecherche) != -1 && this.usager.prenom.indexOf(this.prenomRecherche) != -1">
+  <b-card style="min-width: 300px;height: 250px; box-shadow: 0px 5px 10px darkgray; display: inline-block; margin: 15px 15px 15px 15px; vertical-align: middle" v-if="this.usager.nom.indexOf(this.nomRecherche) != -1 && this.usager.prenom.indexOf(this.prenomRecherche) != -1">
     <div v-if="enMofification">
-      <input type="text" v-model="nom" placeholder="Nom"><input type="text" v-model="prenom" placeholder="Prénom">
-      <div>
-        <input type="text" v-model="adresse" placeholder="Adresse">
-        <input type="text" v-model="mail" placeholder="Mail">
-        <br>
+      <div class="input-class">
+        <input type="text" v-model="nom" placeholder="Nom"><input type="text" v-model="prenom" placeholder="Prénom">
+      </div>
 
-        <button v-on:click="changerEnModification">ANNULER</button>
-        <button v-on:click="modifierUsager">ENREGISTRER</button>
+      <div class="input-class">
+       <input type="text" v-model="adresse" placeholder="Adresse">
+      </div>
+
+      <div class="input-class">
+        <input type="text" v-model="mail" placeholder="Mail">
+      </div>
+
+      <div style="margin-top: 60px">
+        <b-button variant="warning" v-on:click="changerEnModification">ANNULER</b-button>
+        <b-button style="float: right" variant="success" v-on:click="modifierUsager">ENREGISTRER</b-button>
       </div>
     </div>
 
     <div v-else>
-      <h3>{{this.usager.nom}} {{this.usager.prenom}}</h3>
+      <h4>{{this.usager.nom}} {{this.usager.prenom}}</h4><br>
       <div>
         <p>Adresse : {{this.usager.adresse}}</p>
         <p>Mail : {{this.usager.mail}}</p>
         <p>Nombre de pénalité : {{this.usager.penalite}}</p>
 
-        <button v-on:click="supprimerUsager">SUPPRIMER</button>
-        <button v-on:click="changerEnModification">MODIFIER</button>
+        <b-button variant="danger" v-on:click="supprimerUsager">SUPPRIMER</b-button>
+        <b-button style="float: right" variant="warning" v-on:click="changerEnModification">MODIFIER</b-button>
       </div>
     </div>
 
-  </div>
+  </b-card>
 </template>
 
 <script>

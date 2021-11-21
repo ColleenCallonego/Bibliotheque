@@ -1,41 +1,57 @@
 <template>
-  <div>
-    <h2>AJOUTER OEUVRE</h2>
-    <button v-on:click="$emit('fermerPopUp')">ANNULER</button>
+  <div class="overlay">
+    <b-card title="AJOUTER OEUVRE" style="min-width: 474px;width: 25%;margin: 10% auto;box-shadow: 0px 5px 10px darkgray">
+      <b-button style="float: right" variant="warning" v-on:click="$emit('fermerPopUp')">ANNULER</b-button>
 
-    <div>
-      <input type="text" v-model="nomOeuvre">
-      <label>Titre</label><br>
-      <input type="text" v-model="auteurOeuvre">
-      <label>Auteur</label><br>
-      <input type="number" min="1" v-model="nbPageOeuvre">
-      <label>Nombre de page</label><br>
-      <input type="number" min="7" v-model="dureePret">
-      <label>Durée du prêt</label><br>
+      <div>
+        <div class="input-class">
+          <input type="text" v-model="nomOeuvre">
+          <label>Titre</label>
+        </div>
+        <div class="input-class">
+          <input type="text" v-model="auteurOeuvre">
+          <label>Auteur</label>
+        </div>
+        <div class="input-class">
+          <input type="number" min="1" v-model="nbPageOeuvre">
+          <label>Nombre de page</label>
+        </div>
+        <div class="input-class">
+          <input type="number" min="7" v-model="dureePret">
+          <label>Durée du prêt</label>
+        </div>
+        <div class="input-class">
+          <input type="radio" value="livre" v-model="typeAjout" v-on:click="numeroMagazine = '';categorieMagazine = ''">
+          <label>Livre</label>
+          <input type="radio" value="magazine" v-model="typeAjout" v-on:click="sousNomLivre = '';resumeLivre = ''">
+          <label>Magazine</label>
+        </div>
 
-      <input type="radio" value="livre" v-model="typeAjout" v-on:click="numeroMagazine = '';categorieMagazine = ''">
-      <label>Livre</label>
-      <input type="radio" value="magazine" v-model="typeAjout" v-on:click="sousNomLivre = '';resumeLivre = ''">
-      <label>Magazine</label><br>
+        <div v-if="typeAjout == 'livre'">
+          <div class="input-class">
+            <input type="text" v-model="sousNomLivre">
+            <label>Sous-titre</label>
+          </div>
+          <div class="input-class">
+            <textarea type="text" v-model="resumeLivre"></textarea>
+            <label>Résumé</label>
+          </div>
+          <b-button variant="success" v-bind:disabled="changeClicAjouterLivre" v-on:click="postFormLivre()">AJOUTER</b-button><span>{{reponseAPI}}</span>
+        </div>
+        <div v-else-if="typeAjout == 'magazine'">
+          <div class="input-class">
+            <input type="number" min="1" v-model="numeroMagazine">
+            <label>Numéro</label>
+          </div>
+          <div class="input-class">
+            <input type="text" v-model="categorieMagazine">
+            <label>Catégorie</label>
+          </div>
+          <b-button variant="success" v-bind:disabled="changeClicAjouterMagazine" v-on:click="postFormMagazine()">AJOUTER</b-button><span>{{reponseAPI}}</span>
+        </div>
 
-      <div v-if="typeAjout == 'livre'">
-        <input type="text" v-model="sousNomLivre">
-        <label>Sous-titre</label><br>
-        <textarea type="text" v-model="resumeLivre"></textarea>
-        <label>Résumé</label><br>
-
-        <button v-bind:disabled="changeClicAjouterLivre" v-on:click="postFormLivre()">AJOUTER</button><span>{{reponseAPI}}</span>
       </div>
-      <div v-else-if="typeAjout == 'magazine'">
-        <input type="number" min="1" v-model="numeroMagazine">
-        <label>Numéro</label><br>
-        <input type="text" v-model="categorieMagazine">
-        <label>Catégorie</label><br>
-
-        <button v-bind:disabled="changeClicAjouterMagazine" v-on:click="postFormMagazine()">AJOUTER</button><span>{{reponseAPI}}</span>
-      </div>
-
-    </div>
+    </b-card>
   </div>
 </template>
 

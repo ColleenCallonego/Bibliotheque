@@ -1,12 +1,14 @@
 <template>
-  <div>
-    <h2>Affiche les exemplaires de : {{nomEntier}}</h2>
-    <button v-on:click="$emit('fermerPopUp')">RETOUR</button>
+  <div class="overlay">
+    <b-card style="min-width: 1000px;width: 75%;margin: 5% auto;box-shadow: 0px 5px 10px darkgray">
+      <h4>Affiche les exemplaires de : {{nomEntier}}</h4>
+      <b-button style="float: right" variant="warning" v-on:click="$emit('fermerPopUp')">RETOUR</b-button>
 
-    <button v-on:click="ouvrePopUpAjouterExemplaire">AJOUTER EXEMPLAIRE</button>
-    <PopUpAjouterExemplaire v-if="popUpEtat" v-on:fermerPopUp="popUpEtat = false" v-bind:id-oeuvre="idOeuvre" v-on:ajouterExemplaire="recupererTousLesExemplaire"></PopUpAjouterExemplaire>
+      <b-button style="background-color: #e5dcd1;color: black" v-on:click="ouvrePopUpAjouterExemplaire">AJOUTER EXEMPLAIRE</b-button>
+      <PopUpAjouterExemplaire v-if="popUpEtat" v-on:fermerPopUp="popUpEtat = false" v-bind:id-oeuvre="idOeuvre" v-on:ajouterExemplaire="recupererTousLesExemplaire"></PopUpAjouterExemplaire>
 
-    <ListeExemplaireComponent v-bind:exemplaires-tab="exemplairesTab" v-on:modifierSupprimerExemplaire="recupererTousLesExemplaire"></ListeExemplaireComponent>
+      <ListeExemplaireComponent class="component-card" v-bind:exemplaires-tab="exemplairesTab" v-on:modifierSupprimerExemplaire="recupererTousLesExemplaire"></ListeExemplaireComponent>
+    </b-card>
   </div>
 </template>
 

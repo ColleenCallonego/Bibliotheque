@@ -1,20 +1,28 @@
 <template>
-  <div>
-    <h1>AJOUTER USAGER</h1>
-    <button v-on:click="$emit('fermerPopUp')">ANNULER</button>
+  <div class="overlay">
+    <b-card title="AJOUTER USAGER" style="min-width: 474px;width: 25%;margin: 10% auto;box-shadow: 0px 5px 10px darkgray">
+      <b-button style="float: right" variant="warning" v-on:click="$emit('fermerPopUp')">ANNULER</b-button>
 
-    <div>
-      <input type="text" id="nom" name="nom" v-model="nom">
-      <label for="nom">Nom</label><br>
-      <input type="text" id="prenom" name="prenom" v-model="prenom">
-      <label for="prenom">Prenom</label><br>
-      <input type="text" id="mail" name="mail" v-model="mail">
-      <label for="mail">Mail</label><br>
-      <input type="text" id="adresse" name="adresse" v-model="adresse">
-      <label for="adresse">Adresse</label><br>
-
-      <button v-bind:disabled="changeClicAjouterUsager" v-on:click="postForm()">AJOUTER</button><span>{{reponseAPI}}</span>
-    </div>
+      <div>
+        <div class="input-class">
+          <input type="text" id="nom" name="nom" v-model="nom">
+          <label for="nom">Nom</label>
+        </div>
+        <div class="input-class">
+          <input type="text" id="prenom" name="prenom" v-model="prenom">
+          <label for="prenom">Prenom</label>
+        </div>
+        <div class="input-class">
+          <input type="text" id="mail" name="mail" v-model="mail">
+          <label for="mail">Mail</label>
+        </div>
+        <div class="input-class">
+          <input type="text" id="adresse" name="adresse" v-model="adresse">
+          <label for="adresse">Adresse</label>
+        </div>
+        <b-button variant="success" v-bind:disabled="changeClicAjouterUsager" v-on:click="postForm()">AJOUTER</b-button><span>{{reponseAPI}}</span>
+      </div>
+    </b-card>
   </div>
 </template>
 
@@ -58,3 +66,15 @@ export default {
   }
 }
 </script>
+
+<style>
+.overlay {
+  position: fixed;
+  left: 0px;
+  top:0px;
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 100%;
+  height: 100%;
+  z-index:2;
+}
+</style>

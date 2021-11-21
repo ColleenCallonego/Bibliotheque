@@ -1,27 +1,29 @@
 <template>
-  <div>
-    <h2>Liste des oeuvres</h2>
-
-    <div id="rechercheParTitre">
+  <b-card title="Liste des oeuvres">
+    <div>
       <p>Recherche d'une oeuvre</p>
 
-      <input type="radio" id="recherhceLivre" value="livre" v-model="typeRecherhce" v-on:click="numeroMagazineRecherche = '';titreOeuvreRecherche = ''">
-      <label for="recherhceLivre">Livre</label>
-      <input type="radio" id="recherhceMagazine" value="magazine" v-model="typeRecherhce" v-on:click="sousTitreLivreRecherche = '';titreOeuvreRecherche = ''">
-      <label for="recherhceMagazine">Magazine</label><br>
+      <input type="radio" value="tous" v-model="typeRecherhce" v-on:click="numeroMagazineRecherche = '';sousTitreLivreRecherche = '';titreOeuvreRecherche = ''">
+      <label>Tous</label>
+      <input type="radio" value="livre" v-model="typeRecherhce" v-on:click="numeroMagazineRecherche = '';titreOeuvreRecherche = ''">
+      <label>Livre</label>
+      <input type="radio" value="magazine" v-model="typeRecherhce" v-on:click="sousTitreLivreRecherche = '';titreOeuvreRecherche = ''">
+      <label>Magazine</label>
 
-      <span v-if="typeRecherhce != null">
-      <input type="text" id="rechercheOeuvreTitre" name="rechercheOeuvreTitre" v-model="titreOeuvreRecherche">
-      <label for="rechercheOeuvreTitre">Titre</label>
-      </span>
-      <span v-if="typeRecherhce == 'livre'">
-      <input type="text" id="rechercheLivreSousTitre" name="rechercheLivreSousTitre" v-model="sousTitreLivreRecherche">
-      <label for="rechercheLivreSousTitre">Sous-titre</label>
-      </span>
-      <span v-else-if="typeRecherhce == 'magazine'">
-      <input type="number" min="1" id="rechercheMagazineNumero" name="rechercheMagazineNumero" v-model="numeroMagazineRecherche">
-      <label for="rechercheMagazineNumero">Numéro</label>
-      </span>
+      <div class="input-class">
+        <span v-if="typeRecherhce != null && typeRecherhce != 'tous'">
+        <input type="text" id="rechercheOeuvreTitre" name="rechercheOeuvreTitre" v-model="titreOeuvreRecherche">
+        <label for="rechercheOeuvreTitre">Titre</label>
+        </span>
+        <span v-if="typeRecherhce == 'livre'">
+        <input type="text" id="rechercheLivreSousTitre" name="rechercheLivreSousTitre" v-model="sousTitreLivreRecherche">
+        <label for="rechercheLivreSousTitre">Sous-titre</label>
+        </span>
+        <span v-else-if="typeRecherhce == 'magazine'">
+        <input type="number" min="1" id="rechercheMagazineNumero" name="rechercheMagazineNumero" v-model="numeroMagazineRecherche">
+        <label for="rechercheMagazineNumero">Numéro</label>
+        </span>
+      </div>
     </div>
 
     <div v-if="typeRecherhce != 'magazine'">
@@ -48,7 +50,7 @@
       </ListeMagazineItem>
     </div>
 
-  </div>
+  </b-card>
 </template>
 
 <script>

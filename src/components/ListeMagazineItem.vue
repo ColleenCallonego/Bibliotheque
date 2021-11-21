@@ -1,16 +1,16 @@
 <template>
-  <div v-if="this.magazine.nom.indexOf(this.nomRecherche) != -1 && this.magazine.numero.indexOf(this.numeroRecherche) != -1">
-    <h3>{{this.magazine.nom}} N°{{this.magazine.numero}}</h3>
+  <b-card style="min-width: 300px;height: 250px; box-shadow: 0px 5px 10px darkgray; display: inline-block; margin: 15px 15px 15px 15px; vertical-align: middle" v-if="this.magazine.nom.indexOf(this.nomRecherche) != -1 && this.magazine.numero.indexOf(this.numeroRecherche) != -1">
+    <h4>{{this.magazine.nom}} N°{{this.magazine.numero}}</h4>
     <div>
       <p>Auteur : {{this.magazine.auteur}}</p>
       <p>Catégorie : {{this.magazine.categorie}}</p>
       <p>{{this.magazine.nbPage}} pages</p>
 
-      <button v-on:click="supprimerMagazine">SUPPRIMER</button>
-      <button v-on:click="ouvrePopUpAfficherExemplaire">AFFICHER EXEMPLAIRES</button>
+      <b-button variant="danger" v-on:click="supprimerMagazine">SUPPRIMER</b-button>
+      <b-button style="background-color: #e5dcd1;color: black;float: right" v-on:click="ouvrePopUpAfficherExemplaire">AFFICHER EXEMPLAIRES</b-button>
       <PopUpAfficherExemplaire v-if="popUpEtat" v-on:fermerPopUp="popUpEtat = false" v-bind:id-oeuvre="this.oeuvreId" v-bind:nom-entier="collerNom"></PopUpAfficherExemplaire>
     </div>
-  </div>
+  </b-card>
 </template>
 
 <script>

@@ -1,18 +1,25 @@
 <template>
-  <div>
-    <h3>AJOUTER EXEMPLAIRE</h3>
-    <button v-on:click="$emit('fermerPopUp')">ANNULER</button>
+  <div class="overlay">
+    <b-card title="AJOUTER EXEMPLAIRE" style="min-width: 500px;width: 25%;margin: 10% auto;box-shadow: 0px 5px 10px darkgray">
+      <b-button style="float: right" variant="warning" v-on:click="$emit('fermerPopUp')">ANNULER</b-button>
 
-    <div>
-      <input type="text" maxlength="5" v-model="codeExemplaire">
-      <label>Code Exemplaire</label><br>
-      <input type="text" v-model="editionExemplaire">
-      <label>Edition Exemplaire</label><br>
-      <input type="date" v-model="dateParutionExemplaire">
-      <label>Date de parution Exemplaire</label><br>
+      <div>
+        <div class="component-card">
+          <input type="text" maxlength="5" v-model="codeExemplaire">
+          <label>Code Exemplaire</label>
+        </div>
+        <div class="component-card">
+          <input type="text" v-model="editionExemplaire">
+          <label>Edition Exemplaire</label>
+        </div>
+        <div class="component-card">
+          <input type="date" v-model="dateParutionExemplaire">
+          <label>Date de parution Exemplaire</label><br>
+        </div>
 
-      <button v-bind:disabled="changeClicAjouterExemplaire" v-on:click="postFormAjouterExemplaire()">AJOUTER</button><span>{{reponseAPI}}</span>
-    </div>
+        <b-button variant="success" v-bind:disabled="changeClicAjouterExemplaire" v-on:click="postFormAjouterExemplaire()">AJOUTER</b-button><span>{{reponseAPI}}</span>
+      </div>
+    </b-card>
   </div>
 </template>
 

@@ -1,10 +1,10 @@
 <template>
-  <div>
+  <div style="padding: 10px 0 0 20px">
     <h1>Oeuvres et exemplaires</h1>
-    <button v-on:click="ouvrePopUpAjouterOeuvre">AJOUTER OEUVRE</button>
+    <b-button style="background-color: #e5dcd1;color: black" v-on:click="ouvrePopUpAjouterOeuvre">AJOUTER OEUVRE</b-button>
     <PopUpAjouterOeuvre v-if="popUpEtat" v-on:fermerPopUp="popUpEtat = false" v-on:ajouterOeuvre="recupererToutesLesOeuvres"></PopUpAjouterOeuvre>
 
-    <ListeOeuvreComponent v-bind:livres-tab="livresTab" v-bind:magazines-tab="magazinesTab" v-on:supprimerOeuvre="recupererToutesLesOeuvres"></ListeOeuvreComponent>
+    <ListeOeuvreComponent class="component-card" v-bind:livres-tab="livresTab" v-bind:magazines-tab="magazinesTab" v-on:supprimerOeuvre="recupererToutesLesOeuvres"></ListeOeuvreComponent>
   </div>
 </template>
 

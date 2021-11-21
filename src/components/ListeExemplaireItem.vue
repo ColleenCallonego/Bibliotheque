@@ -1,26 +1,29 @@
 <template>
-  <div v-if="enMofification">
-    <h3>{{exemplaire.codeExemplaire}}</h3>
-    <select v-model="newEtat">
-      <option value="En rayon">En rayon</option>
-      <option value="Abime">Abimé</option>
-    </select>
-    <label>Nouvel état</label>
-    <br>
+  <b-card style="min-width: 300px;height: 250px; box-shadow: 0px 5px 10px darkgray; display: inline-block; margin: 15px 15px 15px 15px; vertical-align: middle">
+    <div v-if="enMofification">
+      <h4>{{exemplaire.codeExemplaire}}</h4>
+      <b-select v-model="newEtat">
+        <option value="En rayon">En rayon</option>
+        <option value="Abime">Abimé</option>
+      </b-select>
+      <label>Nouvel état</label>
 
-    <button v-on:click="changerEnModification">ANNULER</button>
-    <button v-on:click="modifierExemplaire">ENREGISTRER</button>
-  </div>
+      <div style="margin-top: 95px">
+        <b-button variant="warning" v-on:click="changerEnModification">ANNULER</b-button>
+        <b-button style="float: right" variant="success" v-on:click="modifierExemplaire">ENREGISTRER</b-button>
+      </div>
+    </div>
 
-  <div v-else>
-    <h3>{{exemplaire.codeExemplaire}}</h3>
-    <p>Maison d'édition : {{exemplaire.edition}}</p>
-    <p>Date de parution : {{dateExemplaire}}</p>
-    <p>Disponibilité : {{exemplaire.etat}}</p>
+    <div v-else>
+      <h4>{{exemplaire.codeExemplaire}}</h4>
+      <p>Maison d'édition : {{exemplaire.edition}}</p>
+      <p>Date de parution : {{dateExemplaire}}</p>
+      <p>Disponibilité : {{exemplaire.etat}}</p>
 
-    <button v-bind:disabled="estSupprimable" v-on:click="supprimerExemplaire">SUPPRIMER</button>
-    <button v-bind:disabled="estModifiable" v-on:click="changerEnModification">MODIFIER</button>
-  </div>
+      <b-button variant="danger" v-bind:disabled="estSupprimable" v-on:click="supprimerExemplaire">SUPPRIMER</b-button>
+      <b-button style="float: right" variant="warning" v-bind:disabled="estModifiable" v-on:click="changerEnModification">MODIFIER</b-button>
+    </div>
+  </b-card>
 </template>
 
 <script>

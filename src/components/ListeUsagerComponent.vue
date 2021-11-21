@@ -1,8 +1,6 @@
 <template>
-  <div>
-    <h2>Liste des usagers</h2>
-
-    <div id="rechercheParNom">
+  <b-card style="box-shadow: 0px 5px 10px darkgray;width: 99%" title="Liste des usagers">
+    <div>
       <p>Recherche d'un usager</p>
 
       <input type="text" id="rechercheUsagerNom" name="rechercheUsagerNom" v-model="nomUsagerRecherche">
@@ -23,7 +21,7 @@
       >
       </ListeUsagerItem>
     </div>
-  </div>
+  </b-card>
 </template>
 
 <script>
