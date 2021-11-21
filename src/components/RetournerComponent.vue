@@ -43,7 +43,7 @@
         </div>
 
         <div class="input-class">
-          <button v-bind:disabled="changeClicRendre" v-on:click="postFormRetour()">RENDRE</button><span>{{reponseAPI}}</span><br>
+          <b-button style="background-color: #e5dcd1;color: black" v-bind:disabled="changeClicRendre" v-on:click="postFormRetour()">RENDRE</b-button><span>{{reponseAPI}}</span><br>
 
           <p v-if="this.usagerIdRetour == 'inexistant'">Nous n'avons pas trouvé votre compte usager, vérifiez l'orthographe ou créez-vous un compte.</p>
           <p v-else-if="this.oeuvreIdRetour == 'inexistant'">Malheureusement nous ne connaisons pas l'oeuvre que vous voulez rendre, vérifiez l'orthographe.</p>

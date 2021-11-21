@@ -1,12 +1,17 @@
 <template>
   <div>
-    <h2>Réserver une oeuvre</h2>
+    <h4>Réserver une oeuvre</h4>
     <div>
+
+      <div class="input-class">
       <input type="radio" value="livre" v-model="typeOeuvreReservation" v-on:click="titreOeuvreReservation = '';numeroMagazineReservation = ''">
       <label>Livre</label>
       <input type="radio" value="magazine" v-model="typeOeuvreReservation" v-on:click="titreOeuvreReservation = '';sousTitreLivreReservation = ''">
-      <label>Magazine</label><br>
+      <label>Magazine</label>
+      </div>
 
+      <div class="input-class">
+      <b-icon class="bIcone" icon="book-fill"></b-icon>
       <input type="text" v-model="titreOeuvreReservation">
       <label>Titre</label>
       <span v-if="typeOeuvreReservation == 'livre'">
@@ -17,11 +22,12 @@
         <input type="number" min="1" v-model="numeroMagazineReservation">
         <label>Numéro</label>
       </span>
+      </div>
 
-      <br>
-      <button v-bind:disabled="changeClicReserver" v-on:click="postFormReserver()">RESERVER</button><span>{{reponseAPI}}</span><br>
-
-      <p v-if="oeuvreIdReservation == 'inexistant'">Nous ne trouvons pas l'oeuvre que vous voulez réserver, vérifiez l'orthographe.</p>
+      <div class="input-class">
+        <b-button style="background-color: #e5dcd1;color: black" v-bind:disabled="changeClicReserver" v-on:click="postFormReserver()">RESERVER</b-button><span>{{reponseAPI}}</span><br>
+        <p v-if="oeuvreIdReservation == 'inexistant'">Nous ne trouvons pas l'oeuvre que vous voulez réserver, vérifiez l'orthographe.</p>
+      </div>
     </div>
   </div>
 </template>

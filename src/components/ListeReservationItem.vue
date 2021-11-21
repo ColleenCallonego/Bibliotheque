@@ -1,22 +1,25 @@
 <template>
-  <!--Livre-->
-  <div v-if="typeOeuvre == 'L'">
-    <h3>{{reservation.oeuvre.nom}} - {{reservation.oeuvre.sousNom}}</h3>
-    <div>
-      <p v-if="reservation.etat == 'Prete'">Disponible<button v-on:click="recupererReservation">RECUPERER</button></p>
-      <p v-else>Pas disponible</p>
-      <button v-on:click="annulerReservation('Annulee')">ANNULER</button>
+  <b-card style="min-width: 300px;height: 150px; box-shadow: 0px 5px 10px darkgray; display: inline-block; margin: 15px 15px 15px 15px; vertical-align: middle">
+
+    <!--Livre-->
+    <div v-if="typeOeuvre == 'L'">
+      <h5>{{oeuvre.nom}} - {{oeuvre.sousNom}}</h5>
+      <div>
+        <p v-if="reservation.etat == 'Prete'">Disponible<b-button variant="success" style="float: right" v-on:click="recupererReservation">RECUPERER</b-button></p>
+        <p v-else>Pas disponible</p>
+        <b-button variant="danger" style="float: bottom" v-on:click="annulerReservation('Annulee')">ANNULER</b-button>
+      </div>
     </div>
-  </div>
-  <!--Magazine-->
-  <div v-else>
-    <h3>{{reservation.oeuvre.nom}} - {{reservation.oeuvre.numero}}</h3>
-    <div>
-      <p v-if="reservation.etat == 'Prete'">Disponible<button v-on:click="recupererReservation">RECUPERER</button></p>
-      <p v-else>Pas disponible</p>
-      <button v-on:click="annulerReservation('Annulee')">ANNULER</button>
+    <!--Magazine-->
+    <div v-else>
+      <h5>{{oeuvre.nom}} N°{{oeuvre.numero}}</h5>
+      <div>
+        <p v-if="reservation.etat == 'Prete'">Disponible<b-button variant="success" style="float: right" v-on:click="recupererReservation">RECUPERER</b-button></p>
+        <p v-else>Pas disponible</p>
+        <b-button variant="danger" style="float: bottom" v-on:click="annulerReservation('Annulee')">ANNULER</b-button>
+      </div>
     </div>
-  </div>
+  </b-card>
 </template>
 
 <script>
@@ -27,12 +30,13 @@ export default {
     return {
       reponseAPI: null,
       idExemplaire: null,
+      oeuvre: [],
     }
   },
   props: ['reservation', 'idUsager'],
   computed: {
     typeOeuvre: function (){
-      if (this.reservation.oeuvre.sousNom == null){
+      if (this.oeuvre.sousNom == null){
         return 'M'
       }
       else{
@@ -40,10 +44,18 @@ export default {
       }
     }
   },
+  mounted() {
+    let param = new URLSearchParams()
+    param.append('id', this.reservation.oeuvre)
+    axios.get('/oeuvres/identificationParId', {params: param})
+        .then(response => {
+          this.oeuvre = response.data
+        })
+  },
   methods: {
     recupererExemplaireReservation(){
       let param = new URLSearchParams()
-      param.append('oeuvre', this.reservation.oeuvre.id)
+      param.append('oeuvre', this.oeuvre.id)
       axios.get('/exemplaires/exemplaireReserve', {params: param})
           .then(response => {
             this.idExemplaire = response.data.id

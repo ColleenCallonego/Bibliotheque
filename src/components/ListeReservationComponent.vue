@@ -1,6 +1,6 @@
 <template>
   <div v-if="reservationsTab != 'inexistant'">
-    <h2>Liste des réservations en cours </h2>
+    <h4>Liste des réservations en cours </h4>
     <ListeReservationItem
         v-for="reservation in reservationsTab"
         v-bind:key="reservation.id"
@@ -9,10 +9,10 @@
         v-on:changerReservation="$emit('changerReservation')"
     >
     </ListeReservationItem>
-
   </div>
+
   <div v-else>
-    <h2>Aucune réservation en cours</h2>
+    <h4>Aucune réservation en cours</h4>
   </div>
 </template>
 

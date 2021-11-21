@@ -1,8 +1,8 @@
 <template>
-  <div>
+  <div style="padding: 10px 0 0 20px">
     <h1>Réservation d'oeuvres</h1>
-    <ReservationIdentifierUsagerComponent v-on:recupUsager="recupererListeReservationEtUsager($event)"></ReservationIdentifierUsagerComponent>
-    <ReservationComponent v-bind:id-usager="usagerReservations.id" v-bind:reservations-tab="usagerReservations.reservationsTab" v-on:changerReservation="recupererListeReservation"></ReservationComponent>
+    <ReservationIdentifierUsagerComponent class="component-card" v-on:recupUsager="recupererListeReservationEtUsager($event)"></ReservationIdentifierUsagerComponent>
+    <ReservationComponent class="component-card" v-bind:id-usager="usagerReservations.id" v-bind:reservations-tab="usagerReservations.reservationsTab" v-on:changerReservation="recupererListeReservation"></ReservationComponent>
   </div>
 </template>
 

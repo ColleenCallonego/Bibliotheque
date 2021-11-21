@@ -4,7 +4,7 @@
       <b-nav>
         <b-nav-item><img width="68" height="68" src="@/assets/livres.png" v-on:click="currentTab = 'Home'"></b-nav-item>
         <b-nav-item>
-          <b-button pill style="height: 68px;vertical-align: middle; background-color: rgba(119,141,175,0.16); color: black; margin: 0px 50px 0px 50px"
+          <b-button style="height: 68px;vertical-align: middle; background-color: rgba(119,141,175,0.16); color: black; margin: 0px 50px 0px 50px"
           v-for="tab in tabs"
           v-bind:key="tab"
           v-on:click="currentTab = tab"

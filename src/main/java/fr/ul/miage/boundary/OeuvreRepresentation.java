@@ -26,6 +26,11 @@ public class OeuvreRepresentation {
     @Autowired
     MagazineResource repositoryM;
 
+    @GetMapping(value = "/identificationParId")
+    public Oeuvre identificationParId(String id){
+        return repositoryO.findById(id).get();
+    }
+
     @PostMapping(value = "/creerLivre")
     @Transactional
     public String creerLivre(String nom, String auteur, Integer nbPage, String sousNom, String resume,
