@@ -7,7 +7,7 @@
       <div>
         <p v-if="reservation.etat == 'Prete'">Disponible<b-button variant="success" style="float: right" v-on:click="recupererReservation">RECUPERER</b-button></p>
         <p v-else>Pas disponible</p>
-        <b-button variant="danger" style="float: bottom" v-on:click="annulerReservation('Annulee')">ANNULER</b-button>
+        <b-button variant="danger" style="float: bottom" v-on:click="modifierReservation('Annulee')">ANNULER</b-button>
       </div>
     </div>
     <!--Magazine-->
@@ -16,7 +16,7 @@
       <div>
         <p v-if="reservation.etat == 'Prete'">Disponible<b-button variant="success" style="float: right" v-on:click="recupererReservation">RECUPERER</b-button></p>
         <p v-else>Pas disponible</p>
-        <b-button variant="danger" style="float: bottom" v-on:click="annulerReservation('Annulee')">ANNULER</b-button>
+        <b-button variant="danger" style="float: bottom" v-on:click="modifierReservation('Annulee')">ANNULER</b-button>
       </div>
     </div>
   </b-card>
@@ -70,7 +70,7 @@ export default {
             this.reponseAPI = response.data
           })
     },
-    annulerReservation(etatModif){
+    modifierReservation(etatModif){
       let param = new URLSearchParams()
       param.append('reservation', this.reservation.id)
       param.append('etat', etatModif)
@@ -81,7 +81,7 @@ export default {
           })
     },
     recupererReservation(){
-      this.annulerReservation('Terminee')
+      this.modifierReservation('Terminee')
       this.recupererExemplaireReservation()
       this.creerEmpruntReservation()
     }
