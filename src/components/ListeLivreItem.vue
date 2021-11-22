@@ -1,5 +1,5 @@
 <template>
-  <b-card style="min-width: 300px;height: 250px; box-shadow: 0px 5px 10px darkgray; display: inline-block; margin: 15px 15px 15px 15px; vertical-align: middle" v-if="this.livre.nom.indexOf(this.titreRecherche) != -1 && this.livre.sousNom.indexOf(this.sousTitreRecherche) != -1">
+  <b-card style="min-width: 300px;margin: auto; box-shadow: 0px 5px 10px darkgray; display: inline-block; margin: 15px 15px 15px 15px; vertical-align: middle" v-if="this.livre.nom.indexOf(this.titreRecherche) != -1 && this.livre.sousNom.indexOf(this.sousTitreRecherche) != -1">
     <h4>{{this.livre.nom}} - {{this.livre.sousNom}}</h4>
     <div>
       <p>Auteur : {{this.livre.auteur}}</p>

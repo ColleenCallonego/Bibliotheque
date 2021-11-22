@@ -34,7 +34,7 @@ export default {
     recupererTousLesUsagers() {
       axios.get('/usagers')
           .then(response => {
-            this.usagersTab = response.data._embedded.usagers
+            this.usagersTab = response.data
           })
     }
   }

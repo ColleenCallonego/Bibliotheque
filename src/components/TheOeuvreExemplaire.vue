@@ -21,6 +21,7 @@ export default {
   data() {
     return {
       popUpEtat: false,
+      oeuvreTab: [],
       livresTab: [],
       magazinesTab: [],
     }
@@ -30,15 +31,26 @@ export default {
 
   },
   methods: {
+    trierOeuvre() {
+      this.oeuvreTab.forEach(oeuvreItem => this.comparerOeuvre(oeuvreItem))
+
+    },
+    comparerOeuvre(item){
+      if (item.sousNom == null){
+        this.magazinesTab.push(item)
+      }
+      else{
+        this.livresTab.push(item)
+      }
+    },
     ouvrePopUpAjouterOeuvre() {
       this.popUpEtat = true
     },
     recupererToutesLesOeuvres() {
       axios.get('/oeuvres')
           .then(response => {
-          console.log(response.data)
-            this.livresTab = response.data._embedded.livres
-            this.magazinesTab = response.data._embedded.magazines
+            this.oeuvreTab = response.data
+            this.trierOeuvre()
           })
     }
   }
