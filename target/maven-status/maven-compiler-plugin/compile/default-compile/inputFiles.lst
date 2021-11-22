@@ -1,20 +1,20 @@
-C:\Users\gabri\IdeaProjects\Bibliotheque\src\main\java\fr\ul\miage\boundary\ReservationResource.java
-C:\Users\gabri\IdeaProjects\Bibliotheque\src\main\java\fr\ul\miage\boundary\EmpruntRepresentation.java
-C:\Users\gabri\IdeaProjects\Bibliotheque\src\main\java\fr\ul\miage\boundary\OeuvreResource.java
-C:\Users\gabri\IdeaProjects\Bibliotheque\src\main\java\fr\ul\miage\entity\Livre.java
-C:\Users\gabri\IdeaProjects\Bibliotheque\src\main\java\fr\ul\miage\BibliothequeServiceApplication.java
-C:\Users\gabri\IdeaProjects\Bibliotheque\src\main\java\fr\ul\miage\boundary\ExemplaireResource.java
-C:\Users\gabri\IdeaProjects\Bibliotheque\src\main\java\fr\ul\miage\entity\Reservation.java
-C:\Users\gabri\IdeaProjects\Bibliotheque\src\main\java\fr\ul\miage\entity\Magazine.java
-C:\Users\gabri\IdeaProjects\Bibliotheque\src\main\java\fr\ul\miage\entity\Emprunt.java
-C:\Users\gabri\IdeaProjects\Bibliotheque\src\main\java\fr\ul\miage\boundary\EmpruntResource.java
-C:\Users\gabri\IdeaProjects\Bibliotheque\src\main\java\fr\ul\miage\boundary\ExemplaireRepresentation.java
-C:\Users\gabri\IdeaProjects\Bibliotheque\src\main\java\fr\ul\miage\entity\Oeuvre.java
-C:\Users\gabri\IdeaProjects\Bibliotheque\src\main\java\fr\ul\miage\boundary\UsagerResource.java
-C:\Users\gabri\IdeaProjects\Bibliotheque\src\main\java\fr\ul\miage\boundary\LivreResource.java
-C:\Users\gabri\IdeaProjects\Bibliotheque\src\main\java\fr\ul\miage\boundary\UsagerRepresentation.java
-C:\Users\gabri\IdeaProjects\Bibliotheque\src\main\java\fr\ul\miage\boundary\MagazineResource.java
-C:\Users\gabri\IdeaProjects\Bibliotheque\src\main\java\fr\ul\miage\entity\Usager.java
-C:\Users\gabri\IdeaProjects\Bibliotheque\src\main\java\fr\ul\miage\boundary\OeuvreRepresentation.java
-C:\Users\gabri\IdeaProjects\Bibliotheque\src\main\java\fr\ul\miage\boundary\ReservationRepresentation.java
-C:\Users\gabri\IdeaProjects\Bibliotheque\src\main\java\fr\ul\miage\entity\Exemplaire.java
+D:\M2 MIAGE SID\Bibliotheque\src\main\java\fr\ul\miage\entity\Usager.java
+D:\M2 MIAGE SID\Bibliotheque\src\main\java\fr\ul\miage\boundary\ReservationRepresentation.java
+D:\M2 MIAGE SID\Bibliotheque\src\main\java\fr\ul\miage\boundary\EmpruntRepresentation.java
+D:\M2 MIAGE SID\Bibliotheque\src\main\java\fr\ul\miage\boundary\OeuvreResource.java
+D:\M2 MIAGE SID\Bibliotheque\src\main\java\fr\ul\miage\boundary\LivreResource.java
+D:\M2 MIAGE SID\Bibliotheque\src\main\java\fr\ul\miage\boundary\ExemplaireResource.java
+D:\M2 MIAGE SID\Bibliotheque\src\main\java\fr\ul\miage\entity\Livre.java
+D:\M2 MIAGE SID\Bibliotheque\src\main\java\fr\ul\miage\boundary\UsagerResource.java
+D:\M2 MIAGE SID\Bibliotheque\src\main\java\fr\ul\miage\boundary\MagazineResource.java
+D:\M2 MIAGE SID\Bibliotheque\src\main\java\fr\ul\miage\boundary\OeuvreRepresentation.java
+D:\M2 MIAGE SID\Bibliotheque\src\main\java\fr\ul\miage\entity\Reservation.java
+D:\M2 MIAGE SID\Bibliotheque\src\main\java\fr\ul\miage\boundary\ExemplaireRepresentation.java
+D:\M2 MIAGE SID\Bibliotheque\src\main\java\fr\ul\miage\entity\Magazine.java
+D:\M2 MIAGE SID\Bibliotheque\src\main\java\fr\ul\miage\entity\Exemplaire.java
+D:\M2 MIAGE SID\Bibliotheque\src\main\java\fr\ul\miage\BibliothequeServiceApplication.java
+D:\M2 MIAGE SID\Bibliotheque\src\main\java\fr\ul\miage\entity\Oeuvre.java
+D:\M2 MIAGE SID\Bibliotheque\src\main\java\fr\ul\miage\boundary\EmpruntResource.java
+D:\M2 MIAGE SID\Bibliotheque\src\main\java\fr\ul\miage\boundary\ReservationResource.java
+D:\M2 MIAGE SID\Bibliotheque\src\main\java\fr\ul\miage\boundary\UsagerRepresentation.java
+D:\M2 MIAGE SID\Bibliotheque\src\main\java\fr\ul\miage\entity\Emprunt.java
