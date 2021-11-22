@@ -1,5 +1,7 @@
 package fr.ul.miage.boundary;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +28,13 @@ public class OeuvreRepresentation {
     @Autowired
     MagazineResource repositoryM;
 
+    @GetMapping
+    public List<Oeuvre> getAll() {
+        return repositoryO.findAll();
+    }
+
     @GetMapping(value = "/identificationParId")
-    public Oeuvre identificationParId(String id){
+    public Oeuvre identificationParId(String id) {
         return repositoryO.findById(id).get();
     }
 

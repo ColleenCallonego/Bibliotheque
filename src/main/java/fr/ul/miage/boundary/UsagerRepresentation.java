@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.*;
 
 import fr.ul.miage.entity.Usager;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 @RestController
@@ -15,6 +17,11 @@ import javax.transaction.Transactional;
 public class UsagerRepresentation {
     @Autowired
     UsagerResource repository;
+
+    @GetMapping
+    public List<Usager> getAll() {
+        return repository.findAll();
+    }
 
     @PostMapping(value = "/creer")
     @Transactional

@@ -36,6 +36,7 @@ export default {
     recupererToutesLesOeuvres() {
       axios.get('/oeuvres')
           .then(response => {
+          console.log(response.data)
             this.livresTab = response.data._embedded.livres
             this.magazinesTab = response.data._embedded.magazines
           })
