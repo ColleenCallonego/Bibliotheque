@@ -41,9 +41,9 @@ public class ReservationRepresentation {
         setReservations.add(r);
         oeuvre.setReservations(setReservations);
         repositoryO.save(oeuvre);
-        Set<Reservation> setReservations2 = usager.getReservations();
-        setReservations2.add(r);
-        usager.setReservations(setReservations2);
+        // Set<Reservation> setReservations2 = usager.getReservations();
+        // setReservations2.add(r);
+        // usager.setReservations(setReservations2);
         repositoryU.save(usager);
         return "Réservation créée";
     }

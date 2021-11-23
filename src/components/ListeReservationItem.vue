@@ -59,6 +59,7 @@ export default {
       axios.get('/exemplaires/exemplaireReserve', {params: param})
           .then(response => {
             this.idExemplaire = response.data.id
+            this.creerEmpruntReservation()
           })
     },
     creerEmpruntReservation(){
@@ -83,7 +84,6 @@ export default {
     recupererReservation(){
       this.modifierReservation('Terminee')
       this.recupererExemplaireReservation()
-      this.creerEmpruntReservation()
     }
   }
 }

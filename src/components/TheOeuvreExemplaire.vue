@@ -47,6 +47,9 @@ export default {
       this.popUpEtat = true
     },
     recupererToutesLesOeuvres() {
+      this.oeuvreTab = []
+      this.livresTab = []
+      this.magazinesTab = []
       axios.get('/oeuvres')
           .then(response => {
             this.oeuvreTab = response.data

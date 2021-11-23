@@ -7,6 +7,6 @@ import fr.ul.miage.entity.Emprunt;
 
 public interface EmpruntResource extends JpaRepository<Emprunt, String> {
 
-    @Query("SELECT e FROM Emprunt e WHERE exemplaire_id = ?1 AND usager = ?2 AND etat = 'En cours'")
+    @Query("SELECT e FROM Emprunt e WHERE exemplaire = ?1 AND usager = ?2 AND etat = 'En cours'")
     public Emprunt findEmpruntByExemplaireEtUsager(String exemplaire, String usager);
 }

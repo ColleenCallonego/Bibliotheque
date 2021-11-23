@@ -17,8 +17,10 @@ public class Usager {
     private String mail;
     private String adresse;
     private Integer penalite;
+
     @OneToMany(cascade = CascadeType.REMOVE)
     private Set<Reservation> reservations;
+
     @OneToMany(cascade = CascadeType.REMOVE)
     private Set<Emprunt> emprunts;
 

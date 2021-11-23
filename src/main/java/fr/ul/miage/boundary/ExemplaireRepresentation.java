@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import fr.ul.miage.entity.Exemplaire;
 import fr.ul.miage.entity.Oeuvre;
+import fr.ul.miage.entity.Reservation;
 
 @RestController
 @RequestMapping(value = "/exemplaires")
@@ -27,6 +28,8 @@ public class ExemplaireRepresentation {
     ExemplaireResource repository;
     @Autowired
     OeuvreResource repositoryO;
+    @Autowired
+    ReservationResource repositoryR;
 
     @PostMapping(value = "/creer")
     @Transactional
@@ -39,12 +42,26 @@ public class ExemplaireRepresentation {
         set.add(e);
         oeuvre.setExemplaires(set);
         repositoryO.save(oeuvre);
+        if (oeuvre.getNbRes() != 0) {
+            oeuvre.setNbRes(oeuvre.getNbRes() - 1);
+            repositoryO.save(oeuvre);
+            e.setEtat("Reserve");
+            repository.save(e);
+            Reservation reservation = repositoryR.findReservationByOeuvreEtDate(oeuvre.getId()).get(0);
+            reservation.setEtat("Prete");
+            repositoryR.save(reservation);
+        }
         return "Exemplaire crée";
     }
 
     @DeleteMapping(value = "/supprimer")
     @Transactional
     public String supprimer(Exemplaire exemplaire) {
+        Oeuvre o = repositoryO.getById(exemplaire.getOeuvre());
+        Set<Exemplaire> set = o.getExemplaires();
+        set.remove(exemplaire);
+        o.setExemplaires(set);
+        repositoryO.save(o);
         repository.delete(exemplaire);
         return "Exemplaire supprimé";
     }
@@ -59,7 +76,11 @@ public class ExemplaireRepresentation {
 
     @GetMapping(value = "/exemplaireDisponible")
     public Exemplaire exemplaireDispo(Oeuvre oeuvre) {
-        return repository.findByEtatEtOeuvre(oeuvre.getId()).get(0);
+        List<Exemplaire> list = repository.findByEtatEtOeuvre(oeuvre.getId());
+        if (list.isEmpty()) {
+            return null;
+        }
+        return list.get(0);
     }
 
     @GetMapping(value = "/identification")
@@ -74,6 +95,10 @@ public class ExemplaireRepresentation {
 
     @GetMapping(value = "/exemplaireReserve")
     public Exemplaire exemplaireReserve(Oeuvre oeuvre) {
-        return repository.findByEtatEtOeuvreReserve(oeuvre.getId()).get(0);
+        List<Exemplaire> list = repository.findByEtatEtOeuvreReserve(oeuvre.getId());
+        if (list.isEmpty()) {
+            return null;
+        }
+        return list.get(0);
     }
 }

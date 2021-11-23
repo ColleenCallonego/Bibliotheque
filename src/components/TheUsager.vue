@@ -32,6 +32,7 @@ export default {
       this.popUpEtat = true
     },
     recupererTousLesUsagers() {
+      this.usagersTab = []
       axios.get('/usagers')
           .then(response => {
             this.usagersTab = response.data
